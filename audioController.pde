@@ -9,6 +9,7 @@ AudioOutput out;
 FilePlayer player;
 
 class AudioController {
+    private final int PD = 8;
     AudioController() {
         minim = new Minim(sketch);
 
@@ -28,9 +29,16 @@ class AudioController {
         // draw the waveforms
         // the values returned by left.get() and right.get() will be between -1 and 1,
         // so we need to scale them up to see the waveform
-        for (int i = 0; i < in .left.size() - 1; i++) {
-            line(i, 50 + in .left.get(i) * 50, i + 1, 50 + in .left.get(i + 1) * 50);
-            line(i, 150 + in .right.get(i) * 50, i + 1, 150 + in .right.get(i + 1) * 50);
+        // in.left.size() - 1
+        for (int i = 0; i < windows[7].size.x; i++) {
+            int scale = 40;
+            int baseY = (int)windows[7].size.y / 2;
+            float x1 = windows[7].xy.x + i;
+            float x2 = windows[7].xy.x + i + 1;
+            float y1 = windows[7].xy.y + baseY + in.left.get(i) * scale;
+            float y2 = windows[7].xy.y + baseY + in.left.get(i + 1) * scale;
+            line(x1, y1, x2, y2);
+            // line(windows[7].xy.x + i, 150 + in .right.get(i) * 50, windows[7].xy.x + i + 1 - PD, 150 + in .right.get(i + 1) * 50);
         }
 
         if (recorder.isRecording()) {

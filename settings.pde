@@ -6,16 +6,28 @@ class SETTING {
     private final int PD = 8;
     private final int[] NUM_WIN_SIZE = {
         3,
-        13,
+        14,
         2,
-        4,
         3,
-        13,
+        3,
+        14,
         2,
+        3
+    };
+    private final int[] NUM_WINMODE = {
+        0,
+        1,
+        3,
+        2,
+        0,
+        1,
+        4,
         4
     };
 
     SETTING() {
+        controlP5 = new ControlP5(sketch);
+        controlP5.setAutoDraw(false);
         windows();
     }
 
@@ -37,9 +49,9 @@ class SETTING {
             for (int j = 0; j < indx; j++)
                 y = y + winH[j];
 
-            winW = (width - PD * 3) / 2;
+            winW = (width - PD * 4) / 2;
             winPos = new PVector(x, y);
-            windows[i] = new Window(i, winPos, winW, winH[i]);
+            windows[i] = new Window(i, winPos, winW, winH[i], NUM_WINMODE[i]);
         }
 
     }
