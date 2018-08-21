@@ -2,22 +2,21 @@ import ddf.minim.*;
 import ddf.minim.ugens.*;
 import processing.video.*;
 import com.hamoid.*;
+import controlP5.*;
+
+ControlP5 controlP5;
 
 PApplet sketch = this;
 
+SETTING settings;
 AudioController audioController;
 VideoController videoController;
-
-
-
-
-
-
 
 public void settings() {
     fullScreen();
 }
 void setup() {
+    settings = new SETTING();
     audioController = new AudioController();
     videoController = new VideoController();
 }
@@ -28,6 +27,8 @@ void draw() {
     audioController.display();
     videoController.display();
     videoController.update();
+    for (Window win: windows)
+            win.display();
 }
 
 void keyReleased() {

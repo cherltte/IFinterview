@@ -7,6 +7,7 @@ import ddf.minim.*;
 import ddf.minim.ugens.*; 
 import processing.video.*; 
 import com.hamoid.*; 
+import controlP5.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -24,21 +25,20 @@ public class IFinterview extends PApplet {
 
 
 
+
+ControlP5 controlP5;
+
 PApplet sketch = this;
 
+SETTING settings;
 AudioController audioController;
 VideoController videoController;
-
-
-
-
-
-
 
 public void settings() {
     fullScreen();
 }
 public void setup() {
+    settings = new SETTING();
     audioController = new AudioController();
     videoController = new VideoController();
 }
@@ -49,6 +49,8 @@ public void draw() {
     audioController.display();
     videoController.display();
     videoController.update();
+    for (Window win: windows)
+            win.display();
 }
 
 public void keyReleased() {
@@ -131,6 +133,52 @@ class AudioController {
         }
     }
 }
+Window[] windows;
+
+class SETTING {
+    private final int NUM_WINS = 8;
+    private final int NUM_DIVISION = 22;
+    private final int PD = 8;
+    private final int[] NUM_WIN_SIZE = {
+        3,
+        13,
+        2,
+        4,
+        3,
+        13,
+        2,
+        4
+    };
+
+    SETTING() {
+        windows();
+    }
+
+    public void windows() {
+        PVector winPos;
+        int winW;
+        int[] winH = new int[NUM_WINS];
+        windows = new Window[NUM_WINS];
+
+        for (int i = 0; i < windows.length; i++) {
+            int unit = (height - PD * 3) / NUM_DIVISION;
+            winH[i] = unit * NUM_WIN_SIZE[i];
+        }
+
+        for (int i = 0; i < windows.length; i++) {
+            int indx = i % (NUM_WINS / 2);
+            int x = (i < NUM_WINS / 2) ? PD : width / 2 + PD;
+            int y = PD * (indx + 1);
+            for (int j = 0; j < indx; j++)
+                y = y + winH[j];
+
+            winW = (width - PD * 3) / 2;
+            winPos = new PVector(x, y);
+            windows[i] = new Window(i, winPos, winW, winH[i]);
+        }
+
+    }
+}
 Movie views[] = new Movie[2];
 VideoExport videoExport;
 
@@ -169,6 +217,24 @@ class VideoController {
 
 public void movieEvent(Movie m) {
     m.read();
+}
+class Window {
+    PVector size, xy;
+    int indx;
+    Window(int indx, PVector xy, int w, int h) {
+        this.xy = xy;
+        this.indx = indx;
+        size = new PVector(w, h);
+    }
+    public void display() {
+        pushStyle();
+        stroke(240);
+        noFill();
+        rect(xy.x, xy.y, size.x, size.y);
+        fill(250, 0, 0);
+        text(indx, xy.x, xy.y);
+        popStyle();
+    }
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "IFinterview" };
