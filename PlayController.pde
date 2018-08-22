@@ -63,6 +63,8 @@ public class PlayController {
 
 
   public void timeSlider(int theValue) {
+    playToggle.setValue(false);
+
     captionPlayer1.jump(theValue);
     captionPlayer2.jump(theValue);
 
