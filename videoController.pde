@@ -11,6 +11,7 @@ class VideoController {
         this.targetWindow = targetWindow;
         this.syncValue = 0;
 
+        view.play();
         while (view.height == 0 || view.width == 0) delay(DELAY);
         if (view.width > view.height) {
             w = windows[targetWindow].size.x;
@@ -19,6 +20,8 @@ class VideoController {
             h = windows[targetWindow].size.y;
             w = (view.width * windows[targetWindow].size.y) / view.height;
         }
+        view.pause();
+        view.jump(0);
     }
     void display() {
         //draw imported movie
