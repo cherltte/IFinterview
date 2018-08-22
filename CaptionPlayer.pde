@@ -62,9 +62,13 @@ class CaptionPlayer {
     currentTime = time;
 
     displayingCaptions.clear();
+    nextCaptionIdx = 0;
     for (int i=0; i<captions.length; i++) {
       Caption c = captions[i];
-      if ((c.time > currentTime - DISPLAYING_TIME) && (c.time <= currentTime)) {
+      if (c.time <= currentTime - DISPLAYING_TIME) {
+        nextCaptionIdx = i+1;
+      }
+      else if ((c.time > currentTime - DISPLAYING_TIME) && (c.time <= currentTime)) {
         displayingCaptions.add(c);
         nextCaptionIdx = i+1;
       }
