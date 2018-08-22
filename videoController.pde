@@ -4,10 +4,12 @@ class VideoController {
     final int targetWindow;
     private final float w, h;
     static final int DELAY = 5;
+    int syncValue;
 
     VideoController(String videoName, int targetWindow) {
         this.view = new Movie(sketch, videoName);
         this.targetWindow = targetWindow;
+        this.syncValue = 0;
 
         while (view.height == 0 || view.width == 0) delay(DELAY);
         if (view.width > view.height) {
@@ -35,7 +37,13 @@ class VideoController {
 
 
     void jump(int frame) {
-        view.jump(frame / 30.0);
+        view.jump((frame + syncValue) / 30.0);
+    }
+
+
+    void sync(int syncValue) {
+        view.jump(view.time() + (syncValue - this.syncValue) / 30.0);
+        this.syncValue = syncValue;
     }
 }
 

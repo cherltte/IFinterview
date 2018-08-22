@@ -107,6 +107,6 @@ public class PlayController {
 
 
   public void syncSlider(int theValue, VideoController targetVideoController) {
-    println(theValue);
+    targetVideoController.sync(theValue);
   }
 }
