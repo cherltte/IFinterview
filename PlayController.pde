@@ -114,6 +114,8 @@ public class PlayController {
 
 
   public void syncSlider(int theValue, VideoController targetVideoController) {
+    playToggle.setValue(false);
+
     targetVideoController.sync(theValue);
   }
 }
