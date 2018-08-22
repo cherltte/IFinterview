@@ -19,7 +19,6 @@ class Window {
     void cp5(int mode) {
         switch (mode) {
             case (1):
-                naviController(mode);
                 volumeController();
                 break;
             case (2):
@@ -38,30 +37,6 @@ class Window {
         fill(250, 0, 0);
         text(indx, xy.x, xy.y);
         popStyle();
-    }
-
-    void naviController(int mode) {
-        int x = 0;
-        int y = 0;
-        int w = 0;
-        switch (mode) {
-            case (1):
-                x = (int) xy.x;
-                y = (int) xy.y;
-                w = (int) size.x - sliderW;
-                break;
-        }
-        controlP5.addSlider("navi" + indx)
-            // disable broadcasting since setRange and setRangeValues will trigger an event
-            // .setBroadcast(false)
-            .setPosition(x, y)
-            .setSize(w, sliderW)
-            .setRange(0, 1)
-            // after the initialization we turn broadcast back on again
-            // .setBroadcast(true)
-            .setColorForeground(color(255, 180))
-            .setColorBackground(color(255, 80))
-            .setLabelVisible(false);
     }
 
     void volumeController() {

@@ -4,6 +4,7 @@ public class PlayController {
 
   private Toggle playToggle;
   private Slider timeSlider;
+  private Slider syncSlider1, syncSlider2;
 
 
   PlayController() {
@@ -23,6 +24,28 @@ public class PlayController {
       .setPosition(windows[2].xy.x, windows[2].xy.y)
       .setSize(width-windows[2].PD*2, windows[2].sliderW)
       .setRange(0, duration)
+      .setColorForeground(color(255, 180))
+      .setColorBackground(color(255, 80))
+      .setLabelVisible(false)
+      .plugTo(this)
+      .setBroadcast(true);
+
+    this.syncSlider1 = controlP5.addSlider("syncSlider1")
+      .setBroadcast(false)
+      .setPosition(windows[1].xy.x, windows[1].xy.y)
+      .setSize(int(windows[1].size.x-windows[1].sliderW), int(windows[1].sliderW))
+      .setRange(-120, 120)
+      .setColorForeground(color(255, 180))
+      .setColorBackground(color(255, 80))
+      .setLabelVisible(false)
+      .plugTo(this)
+      .setBroadcast(true);
+
+    this.syncSlider2 = controlP5.addSlider("syncSlider2")
+      .setBroadcast(false)
+      .setPosition(windows[5].xy.x, windows[5].xy.y)
+      .setSize(int(windows[5].size.x-windows[5].sliderW), int(windows[5].sliderW))
+      .setRange(-120, 120)
       .setColorForeground(color(255, 180))
       .setColorBackground(color(255, 80))
       .setLabelVisible(false)
@@ -70,5 +93,20 @@ public class PlayController {
 
     videoController1.jump(theValue);
     videoController2.jump(theValue);
+  }
+
+
+  public void syncSlider1(int theValue) {
+    syncSlider(theValue, videoController1);
+  }
+
+
+  public void syncSlider2(int theValue) {
+    syncSlider(theValue, videoController2);
+  }
+
+
+  public void syncSlider(int theValue, VideoController targetVideoController) {
+    println(theValue);
   }
 }
