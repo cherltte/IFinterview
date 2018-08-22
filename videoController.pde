@@ -27,7 +27,7 @@ class VideoController {
         pushStyle();
         textSize(13);
         float time = view.time();
-        String text = String.format("%02d:%05.2f (%.2f)", int(time)/60, time, syncValue/30.0);
+        String text = String.format("%02d:%05.2f (%.2f)", int(time)/60, time, syncValue/FRAMERATE);
         text(text, windows[targetWindow].xy.x, windows[targetWindow].xy.y+windows[targetWindow].size.y);
         popStyle();
     }
@@ -44,12 +44,12 @@ class VideoController {
 
 
     void jump(int frame) {
-        view.jump((frame + syncValue) / 30.0);
+        view.jump((frame + syncValue) / FRAMERATE);
     }
 
 
     void sync(int syncValue) {
-        view.jump(view.time() + (syncValue - this.syncValue) / 30.0);
+        view.jump(view.time() + (syncValue - this.syncValue) / FRAMERATE);
         this.syncValue = syncValue;
     }
 }

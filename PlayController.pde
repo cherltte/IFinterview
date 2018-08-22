@@ -71,7 +71,7 @@ public class PlayController {
 
     pushStyle();
     textSize(13);
-    float time = timeSlider.getValue()/30.0;
+    float time = timeSlider.getValue()/FRAMERATE;
     String text = String.format("%02d:%05.2f", int(time)/60, time%60);
     text(text, windows[2].xy.x, windows[2].xy.y+windows[2].size.y);
     popStyle();
