@@ -9,11 +9,6 @@ class Window {
         20,
         250
     };
-    private final int[] playColor = {
-        200,
-        20,
-        100
-    };
     Window(int indx, PVector xy, int w, int h, int mode) {
         this.xy = xy;
         this.indx = indx;
@@ -92,15 +87,6 @@ class Window {
         int x = (int) xy.x + PD;
         int y = (int) xy.y + PD;
         int btSize = (int) size.y - PD * 2;
-        controlP5.addToggle("play" + indx)
-            .setPosition(x, y)
-            .setSize(btSize, btSize)
-            .setCaptionLabel("play/stop");
-            // .setLabelVisible(false)
-            // .setColorActive(color(recordColor[0], recordColor[1], recordColor[2]))
-            // .setColorBackground(color(recordColor[0], recordColor[1], recordColor[2], 200))
-            // .setColorForeground(color(recordColor[0], recordColor[1], recordColor[2], 180));
-        // .setColorBackground(color(255, 40));
         x = x + btSize + PD;
         controlP5.addToggle("record" + indx)
             .setPosition(x, y)

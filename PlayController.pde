@@ -7,8 +7,16 @@ public class PlayController {
 
 
   PlayController() {
-    this.isPlaying = true;
+    this.isPlaying = false;
     this.duration = 3000;
+
+    this.playToggle = controlP5.addToggle("playToggle")
+      .setPosition(windows[3].xy.x+windows[2].PD, windows[3].xy.y+windows[3].PD)
+      .setSize(int(windows[3].size.y-windows[2].PD*2), int(windows[3].size.y-windows[3].PD*2))
+      .setCaptionLabel("play/stop")
+      .setLabelVisible(false)
+      .setLabelVisible(false)
+      .plugTo(this);
 
     this.timeSlider = controlP5.addSlider("timeSlider")
       .setBroadcast(false)
@@ -25,7 +33,7 @@ public class PlayController {
 
   public void draw() {
     if (round(timeSlider.getValue()) == duration) {
-      isPlaying = false;
+      playToggle.setValue(false);
     }
 
     if (isPlaying) {
@@ -34,6 +42,11 @@ public class PlayController {
         .setValue(timeSlider.getValue()+1)
         .setBroadcast(true);
     }
+  }
+
+
+  public void playToggle(boolean theValue) {
+    this.isPlaying = theValue;
   }
 
 
