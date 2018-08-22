@@ -18,6 +18,7 @@ AudioController audioController;
 VideoController videoController1, videoController2;
 VideoRecorder videoRecorder;
 CaptionPlayer captionPlayer1, captionPlayer2;
+final float FRAMERATE = 30.0;
 
 public void settings() {
     fullScreen();
@@ -31,6 +32,7 @@ void setup() {
     videoRecorder = new VideoRecorder();
     captionPlayer1 = new CaptionPlayer("024358.csv", "Operator", 0);
     captionPlayer2 = new CaptionPlayer("024358.csv", "Visitor", 4);
+    frameRate(FRAMERATE);
 }
 
 void draw() {
