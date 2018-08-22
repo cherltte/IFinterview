@@ -4,10 +4,11 @@ class CaptionPlayer {
   static final int DISPLAYING_TIME = 60;
   final int duration;
   int targetWindow;
+  String targetSubject;
   int currentTime;
   int nextCaptionIdx;
 
-  CaptionPlayer(String fileName, int targetWindow) {
+  CaptionPlayer(String fileName, String targetSubject, int targetWindow) {
     String[] lines = loadStrings(fileName);
 
     this.captions = new Caption[lines.length - 1];
@@ -17,6 +18,8 @@ class CaptionPlayer {
     this.duration = captions[captions.length-1].time;
 
     this.displayingCaptions = new ArrayList<Caption>();
+
+    this.targetSubject = targetSubject;
 
     this.targetWindow = targetWindow;
 
@@ -28,6 +31,9 @@ class CaptionPlayer {
     float x = windows[targetWindow].xy.x + windows[targetWindow].PD;
     float y = windows[targetWindow].xy.y + windows[targetWindow].PD + 16;
     for (Caption c : displayingCaptions) {
+      if (!c.subject.equals(targetSubject))
+        continue;
+
       c.display(x, y);
       y += 16;
     }
@@ -82,14 +88,17 @@ class CaptionPlayer {
 
 class Caption {
   int time;
+  String subject;
   String content;
 
 
   Caption(String s) {
     int commaIdx = s.indexOf(",");
+    int commaIdx2 = s.indexOf(",", commaIdx+1);
 
     this.time = Integer.parseInt(s.substring(0, commaIdx));
-    this.content = s.substring(commaIdx+1, s.length());
+    this.subject = s.substring(commaIdx+1, commaIdx2);
+    this.content = s.substring(commaIdx2+1, s.length());
   }
 
 
