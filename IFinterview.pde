@@ -10,7 +10,7 @@ PApplet sketch = this;
 
 SETTING settings;
 AudioController audioController;
-VideoController videoController;
+VideoController videoController1, videoController2;
 VideoRecorder videoRecorder;
 
 public void settings() {
@@ -19,7 +19,8 @@ public void settings() {
 void setup() {
     settings = new SETTING();
     audioController = new AudioController();
-    videoController = new VideoController();
+    videoController1 = new VideoController("processing-movie.mp4", 1);
+    videoController2 = new VideoController("processing-movie2.mp4", 5);
     videoRecorder = new VideoRecorder();
 }
 
@@ -28,7 +29,8 @@ void draw() {
     stroke(255);
     controlP5.draw();
     audioController.display();
-    videoController.display();
+    videoController1.display();
+    videoController2.display();
     videoRecorder.update();
     for (Window win: windows)
         win.display();
