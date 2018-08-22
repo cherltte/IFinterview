@@ -32,7 +32,8 @@ PApplet sketch = this;
 
 SETTING settings;
 AudioController audioController;
-VideoController videoController;
+VideoController videoController1, videoController2;
+VideoRecorder videoRecorder;
 
 public void settings() {
     fullScreen();
@@ -40,17 +41,19 @@ public void settings() {
 public void setup() {
     settings = new SETTING();
     audioController = new AudioController();
-    videoController = new VideoController();
+    videoController1 = new VideoController("processing-movie.mov", 1);
+    videoController2 = new VideoController("processing-movie2.mp4", 5);
+    videoRecorder = new VideoRecorder();
 }
 
 public void draw() {
     background(0);
     stroke(255);
-
     audioController.display();
-    videoController.display();
-    videoController.update();
+    videoController1.display();
+    videoController2.display();
     controlP5.draw();
+    videoRecorder.update();
     for (Window win: windows)
         win.display();
 }
@@ -70,6 +73,7 @@ public void keyReleased() {
             videoExport.startMovie();
             recorder.beginRecord();
         }
+        println("asdf");
     }
     if (recorded && key == 's') {
         // we've filled the file out buffer, 
@@ -89,6 +93,24 @@ public void keyReleased() {
         player = new FilePlayer(recorder.save());
         player.patch(out);
         player.play();
+    }
+}
+VideoExport videoExport;
+
+
+class VideoRecorder {
+    final float movieFPS = 30;
+
+    VideoRecorder() {
+        //initialize export
+        videoExport = new VideoExport(sketch);
+        videoExport.setFrameRate(movieFPS);
+        // videoExport.setAudioFileName("test-sound.mp3");
+        // videoExport.startMovie();
+    }
+
+    public void update(){
+        videoExport.saveFrame();
     }
 }
 Minim minim;
@@ -119,21 +141,23 @@ class AudioController {
 
     }
     public void display() {
-        // draw the waveforms
-        // the values returned by left.get() and right.get() will be between -1 and 1,
-        // so we need to scale them up to see the waveform
-        // in.left.size() - 1
+        drawWaveforms();
+        drawText();
+    }
+
+    public void drawWaveforms() {
         for (int i = 0; i < windows[7].size.x; i++) {
             int scale = 40;
-            int baseY = (int)windows[7].size.y / 2;
+            int baseY = (int) windows[7].size.y / 2;
             float x1 = windows[7].xy.x + i;
             float x2 = windows[7].xy.x + i + 1;
             float y1 = windows[7].xy.y + baseY + in.left.get(i) * scale;
             float y2 = windows[7].xy.y + baseY + in.left.get(i + 1) * scale;
             line(x1, y1, x2, y2);
-            // line(windows[7].xy.x + i, 150 + in .right.get(i) * 50, windows[7].xy.x + i + 1 - PD, 150 + in .right.get(i + 1) * 50);
         }
-
+    }
+    
+    public void drawText() {
         if (recorder.isRecording()) {
             text("Now recording, press the r key to stop recording.", 5, 15);
         } else if (!recorded) {
@@ -173,6 +197,7 @@ class SETTING {
     SETTING() {
         controlP5 = new ControlP5(sketch);
         controlP5.setAutoDraw(false);
+        smooth();
         windows();
     }
 
@@ -183,7 +208,7 @@ class SETTING {
         windows = new Window[NUM_WINS];
 
         for (int i = 0; i < windows.length; i++) {
-            int unit = (height - PD * 3) / NUM_DIVISION;
+            int unit = (height - PD * 5) / NUM_DIVISION;
             winH[i] = unit * NUM_WIN_SIZE[i];
         }
 
@@ -201,40 +226,31 @@ class SETTING {
 
     }
 }
-Movie views[] = new Movie[2];
-VideoExport videoExport;
-
 class VideoController {
-    private final float movieFPS = 30;
-    private final float soundDuration = 10.03f; // in seconds
-    private final int PD = 8;
+    float soundDuration = 10.03f; // in seconds
+    final Movie view;
+    final int targetWindow;
+    private final float w, h;
+    static final int DELAY = 5;
 
-    VideoController() {
-        //initialize import
-        String[] videoName = {
-            "processing-movie.mov",
-            "processing-movie2.mp4"
-        };
+    VideoController(String videoName, int targetWindow) {
+        this.view = new Movie(sketch, videoName);
+        this.targetWindow = targetWindow;
 
-        for (int i = 0; i < 2; i++) {
-            views[i] = new Movie(sketch, videoName[i]);
-            views[i].play();
+        view.play();
+
+        while (view.height == 0 || view.width == 0) delay(DELAY);
+        if (view.width > view.height) {
+            w = windows[targetWindow].size.x;
+            h = (view.height * windows[targetWindow].size.x) / view.width;
+        } else {
+            h = windows[targetWindow].size.y;
+            w = (view.width * windows[targetWindow].size.y) / view.height;
         }
-
-        //initialize export
-        videoExport = new VideoExport(sketch);
-        videoExport.setFrameRate(movieFPS);
-        // videoExport.setAudioFileName("test-sound.mp3");
-        // videoExport.startMovie();
     }
     public void display() {
         //draw imported movie
-        image(views[0], windows[1].xy.x, windows[1].xy.y, windows[1].size.x, windows[1].size.y);
-        image(views[1], windows[5].xy.x, windows[5].xy.y, windows[5].size.x, windows[5].size.y);
-    }
-
-    public void update() {
-        videoExport.saveFrame();
+        image(view, windows[targetWindow].xy.x, windows[targetWindow].xy.y, w, h);
     }
 }
 
@@ -263,6 +279,7 @@ class Window {
         size = new PVector(w, h);
         cp5(mode);
     }
+    
     public void cp5(int mode) {
         switch (mode) {
             case (0):
@@ -322,7 +339,7 @@ class Window {
             .setRange(0, 1)
             // after the initialization we turn broadcast back on again
             // .setBroadcast(true)
-            .setColorForeground(color(255, 120))
+            .setColorForeground(color(255, 180))
             .setColorBackground(color(255, 80))
             .setLabelVisible(false);
     }

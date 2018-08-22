@@ -28,6 +28,7 @@ class SETTING {
     SETTING() {
         controlP5 = new ControlP5(sketch);
         controlP5.setAutoDraw(false);
+        smooth();
         windows();
     }
 
