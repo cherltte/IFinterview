@@ -1,8 +1,6 @@
 Movie views[] = new Movie[2];
-VideoExport videoExport;
 
 class VideoController {
-    float movieFPS = 30;
     float soundDuration = 10.03; // in seconds
 
     VideoController() {
@@ -16,21 +14,11 @@ class VideoController {
             views[i] = new Movie(sketch, videoName[i]);
             views[i].play();
         }
-
-        //initialize export
-        videoExport = new VideoExport(sketch);
-        videoExport.setFrameRate(movieFPS);
-        // videoExport.setAudioFileName("test-sound.mp3");
-        // videoExport.startMovie();
     }
     void display() {
         //draw imported movie
         image(views[0], windows[1].xy.x, windows[1].xy.y);
         image(views[1], windows[5].xy.x, windows[5].xy.y);
-    }
-
-    void update(){
-        videoExport.saveFrame();
     }
 }
 
