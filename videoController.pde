@@ -9,8 +9,6 @@ class VideoController {
         this.view = new Movie(sketch, videoName);
         this.targetWindow = targetWindow;
 
-        view.play();
-
         while (view.height == 0 || view.width == 0) delay(DELAY);
         if (view.width > view.height) {
             w = windows[targetWindow].size.x;
@@ -23,6 +21,21 @@ class VideoController {
     void display() {
         //draw imported movie
         image(view, windows[targetWindow].xy.x, windows[targetWindow].xy.y, w, h);
+    }
+
+
+    void play() {
+        view.play();
+    }
+
+
+    void pause() {
+        view.pause();
+    }
+
+
+    void jump(int frame) {
+        view.jump(frame / 30.0);
     }
 }
 

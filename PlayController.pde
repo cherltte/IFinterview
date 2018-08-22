@@ -50,11 +50,23 @@ public class PlayController {
 
   public void playToggle(boolean theValue) {
     this.isPlaying = theValue;
+
+    if (isPlaying) {
+      videoController1.play();
+      videoController2.play();
+    }
+    else {
+      videoController1.pause();
+      videoController2.pause();
+    }
   }
 
 
   public void timeSlider(int theValue) {
     captionPlayer1.jump(theValue);
     captionPlayer2.jump(theValue);
+
+    videoController1.jump(theValue);
+    videoController2.jump(theValue);
   }
 }
