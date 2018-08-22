@@ -16,7 +16,7 @@ PlayController playController;
 AudioController audioController;
 VideoController videoController1, videoController2;
 VideoRecorder videoRecorder;
-CaptionPlayer captionPlayer;
+CaptionPlayer captionPlayer1, captionPlayer2;
 
 public void settings() {
     fullScreen();
@@ -28,7 +28,8 @@ void setup() {
     videoController1 = new VideoController("processing-movie.mov", 1);
     videoController2 = new VideoController("processing-movie2.mp4", 5);
     videoRecorder = new VideoRecorder();
-    captionPlayer = new CaptionPlayer("024358.csv");
+    captionPlayer1 = new CaptionPlayer("024358.csv", 0);
+    captionPlayer2 = new CaptionPlayer("024358.csv", 4);
 }
 
 void draw() {
@@ -40,7 +41,8 @@ void draw() {
     videoController2.display();
     controlP5.draw();
     videoRecorder.update();
-    captionPlayer.draw();
+    captionPlayer1.draw();
+    captionPlayer2.draw();
     for (Window win: windows)
         win.display();
 }

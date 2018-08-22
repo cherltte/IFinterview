@@ -42,7 +42,8 @@ public class PlayController {
         .setValue(timeSlider.getValue()+1)
         .setBroadcast(true);
 
-      captionPlayer.play();
+      captionPlayer1.play();
+      captionPlayer2.play();
     }
   }
 
@@ -53,6 +54,7 @@ public class PlayController {
 
 
   public void timeSlider(int theValue) {
-    captionPlayer.jump(theValue);
+    captionPlayer1.jump(theValue);
+    captionPlayer2.jump(theValue);
   }
 }

@@ -3,10 +3,11 @@ class CaptionPlayer {
   List<Caption> displayingCaptions;
   static final int DISPLAYING_TIME = 60;
   final int duration;
+  int targetWindow;
   int currentTime;
   int nextCaptionIdx;
 
-  CaptionPlayer(String fileName) {
+  CaptionPlayer(String fileName, int targetWindow) {
     String[] lines = loadStrings(fileName);
 
     this.captions = new Caption[lines.length - 1];
@@ -17,13 +18,15 @@ class CaptionPlayer {
 
     this.displayingCaptions = new ArrayList<Caption>();
 
+    this.targetWindow = targetWindow;
+
     jump(0);
   }
 
 
   void draw() {
-    float x = windows[0].xy.x + windows[0].PD;
-    float y = windows[0].xy.y + windows[0].PD + 16;
+    float x = windows[targetWindow].xy.x + windows[targetWindow].PD;
+    float y = windows[targetWindow].xy.y + windows[targetWindow].PD + 16;
     for (Caption c : displayingCaptions) {
       c.display(x, y);
       y += 16;
