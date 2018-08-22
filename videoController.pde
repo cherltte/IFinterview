@@ -47,12 +47,16 @@ class VideoController {
 
 
     void jump(int frame) {
+        view.play();
         view.jump((frame + syncValue) / FRAMERATE);
+        view.pause();
     }
 
 
     void sync(int syncValue) {
+        view.play();
         view.jump(view.time() + (syncValue - this.syncValue) / FRAMERATE);
+        view.pause();
         this.syncValue = syncValue;
     }
 }
