@@ -20,6 +20,16 @@ class CaptionPlayer {
   }
 
 
+  void draw() {
+    float x = windows[0].xy.x + windows[0].PD;
+    float y = windows[0].xy.y + windows[0].PD + 16;
+    for (Caption c : displayingCaptions) {
+      c.display(x, y);
+      y += 16;
+    }
+  }
+
+
   void jump(int time) {
     time = constrain(time, 0, duration);
 
@@ -45,5 +55,13 @@ class Caption {
 
     this.time = Integer.parseInt(s.substring(0, commaIdx));
     this.content = s.substring(commaIdx+1, s.length());
+  }
+
+
+  void display(float x, float y) {
+    pushStyle();
+    textSize(12);
+    text(content, x, y);
+    popStyle();
   }
 }

@@ -40,6 +40,7 @@ void draw() {
     videoController2.display();
     controlP5.draw();
     videoRecorder.update();
+    captionPlayer.draw();
     for (Window win: windows)
         win.display();
 }

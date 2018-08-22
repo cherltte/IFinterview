@@ -18,9 +18,6 @@ class Window {
     
     void cp5(int mode) {
         switch (mode) {
-            case (0):
-                naviController(mode);
-                break;
             case (1):
                 naviController(mode);
                 volumeController();
@@ -48,11 +45,6 @@ class Window {
         int y = 0;
         int w = 0;
         switch (mode) {
-            case (0):
-                x = (int) xy.x;
-                y = (int) xy.y;
-                w = (int) size.x;
-                break;
             case (1):
                 x = (int) xy.x;
                 y = (int) xy.y;
