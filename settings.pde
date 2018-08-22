@@ -38,7 +38,7 @@ class SETTING {
         windows = new Window[NUM_WINS];
 
         for (int i = 0; i < windows.length; i++) {
-            int unit = (height - PD * 3) / NUM_DIVISION;
+            int unit = (height - PD * 5) / NUM_DIVISION;
             winH[i] = unit * NUM_WIN_SIZE[i];
         }
 
