@@ -23,6 +23,13 @@ class VideoController {
     void display() {
         //draw imported movie
         image(view, windows[targetWindow].xy.x, windows[targetWindow].xy.y, w, h);
+
+        pushStyle();
+        textSize(13);
+        float time = view.time();
+        String text = String.format("%02d:%05.2f (%.2f)", int(time)/60, time, syncValue/30.0);
+        text(text, windows[targetWindow].xy.x, windows[targetWindow].xy.y+windows[targetWindow].size.y);
+        popStyle();
     }
 
 
