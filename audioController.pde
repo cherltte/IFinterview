@@ -26,21 +26,23 @@ class AudioController {
 
     }
     void display() {
-        // draw the waveforms
-        // the values returned by left.get() and right.get() will be between -1 and 1,
-        // so we need to scale them up to see the waveform
-        // in.left.size() - 1
+        drawWaveforms();
+        drawText();
+    }
+
+    void drawWaveforms() {
         for (int i = 0; i < windows[7].size.x; i++) {
             int scale = 40;
-            int baseY = (int)windows[7].size.y / 2;
+            int baseY = (int) windows[7].size.y / 2;
             float x1 = windows[7].xy.x + i;
             float x2 = windows[7].xy.x + i + 1;
             float y1 = windows[7].xy.y + baseY + in.left.get(i) * scale;
             float y2 = windows[7].xy.y + baseY + in.left.get(i + 1) * scale;
             line(x1, y1, x2, y2);
-            // line(windows[7].xy.x + i, 150 + in .right.get(i) * 50, windows[7].xy.x + i + 1 - PD, 150 + in .right.get(i + 1) * 50);
         }
-
+    }
+    
+    void drawText() {
         if (recorder.isRecording()) {
             text("Now recording, press the r key to stop recording.", 5, 15);
         } else if (!recorded) {

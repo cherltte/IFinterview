@@ -2,8 +2,8 @@ Range navi;
 class Window {
     PVector size, xy;
     int indx;
-    private final int sliderW = 20;
-    private final int PD = 8;
+    private final Integer sliderW = 20;
+    private final Integer PD = 8;
     private final int[] recordColor = {
         100,
         20,
@@ -20,6 +20,7 @@ class Window {
         size = new PVector(w, h);
         cp5(mode);
     }
+    
     void cp5(int mode) {
         switch (mode) {
             case (0):
@@ -79,8 +80,8 @@ class Window {
             .setRange(0, 1)
             // after the initialization we turn broadcast back on again
             // .setBroadcast(true)
-            .setColorForeground(color(255, 40))
-            .setColorBackground(color(255, 40))
+            .setColorForeground(color(255, 180))
+            .setColorBackground(color(255, 80))
             .setLabelVisible(false);
     }
 
@@ -91,8 +92,8 @@ class Window {
             .setRange(0, 255)
             .setNumberOfTickMarks(8)
             .setLabelVisible(false)
-            .setColorForeground(color(255, 40))
-            .setColorBackground(color(255, 40));
+            .setColorForeground(color(255, 180))
+            .setColorBackground(color(255, 80));
     }
 
     void playController() {
@@ -102,20 +103,20 @@ class Window {
         controlP5.addToggle("play" + indx)
             .setPosition(x, y)
             .setSize(btSize, btSize)
-            .setCaptionLabel("play/stop")
+            .setCaptionLabel("play/stop");
             // .setLabelVisible(false)
-            .setColorActive(color(recordColor[0],recordColor[1],recordColor[2]))
-            .setColorBackground(color(recordColor[0],recordColor[1],recordColor[2], 200))
-            .setColorForeground(color(recordColor[0],recordColor[1],recordColor[2], 180));
-            // .setColorBackground(color(255, 40));
+            // .setColorActive(color(recordColor[0], recordColor[1], recordColor[2]))
+            // .setColorBackground(color(recordColor[0], recordColor[1], recordColor[2], 200))
+            // .setColorForeground(color(recordColor[0], recordColor[1], recordColor[2], 180));
+        // .setColorBackground(color(255, 40));
         x = x + btSize + PD;
         controlP5.addToggle("record" + indx)
             .setPosition(x, y)
             .setSize(btSize, btSize)
-            .setCaptionLabel("record")
+            .setCaptionLabel("record");
             // .setLabelVisible(false)
-            .setColorActive(color(playColor[0],playColor[1],playColor[2]))
-            .setColorBackground(color(playColor[0],playColor[1],playColor[2], 200))
-            .setColorForeground(color(playColor[0],playColor[1],playColor[2], 180));
+            // .setColorActive(color(playColor[0], playColor[1], playColor[2]))
+            // .setColorBackground(color(playColor[0], playColor[1], playColor[2], 200))
+            // .setColorForeground(color(playColor[0], playColor[1], playColor[2], 180));
     }
 }

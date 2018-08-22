@@ -46,10 +46,11 @@ public void setup() {
 public void draw() {
     background(0);
     stroke(255);
-    controlP5.draw();
+
     audioController.display();
     videoController.display();
     videoController.update();
+    controlP5.draw();
     for (Window win: windows)
         win.display();
 }
@@ -204,16 +205,17 @@ Movie views[] = new Movie[2];
 VideoExport videoExport;
 
 class VideoController {
-    float movieFPS = 30;
-    float soundDuration = 10.03f; // in seconds
+    private final float movieFPS = 30;
+    private final float soundDuration = 10.03f; // in seconds
+    private final int PD = 8;
 
     VideoController() {
         //initialize import
-        String [] videoName = {
-            "processing-movie.mp4",
+        String[] videoName = {
+            "processing-movie.mov",
             "processing-movie2.mp4"
         };
-        
+
         for (int i = 0; i < 2; i++) {
             views[i] = new Movie(sketch, videoName[i]);
             views[i].play();
@@ -227,11 +229,11 @@ class VideoController {
     }
     public void display() {
         //draw imported movie
-        image(views[0], windows[1].xy.x, windows[1].xy.y);
-        image(views[1], windows[5].xy.x, windows[5].xy.y);
+        image(views[0], windows[1].xy.x, windows[1].xy.y, windows[1].size.x, windows[1].size.y);
+        image(views[1], windows[5].xy.x, windows[5].xy.y, windows[5].size.x, windows[5].size.y);
     }
 
-    public void update(){
+    public void update() {
         videoExport.saveFrame();
     }
 }
@@ -243,8 +245,8 @@ Range navi;
 class Window {
     PVector size, xy;
     int indx;
-    private final int sliderW = 20;
-    private final int PD = 8;
+    private final Integer sliderW = 20;
+    private final Integer PD = 8;
     private final int[] recordColor = {
         100,
         20,
@@ -320,8 +322,8 @@ class Window {
             .setRange(0, 1)
             // after the initialization we turn broadcast back on again
             // .setBroadcast(true)
-            .setColorForeground(color(255, 40))
-            .setColorBackground(color(255, 40))
+            .setColorForeground(color(255, 120))
+            .setColorBackground(color(255, 80))
             .setLabelVisible(false);
     }
 
@@ -332,8 +334,8 @@ class Window {
             .setRange(0, 255)
             .setNumberOfTickMarks(8)
             .setLabelVisible(false)
-            .setColorForeground(color(255, 40))
-            .setColorBackground(color(255, 40));
+            .setColorForeground(color(255, 180))
+            .setColorBackground(color(255, 80));
     }
 
     public void playController() {
@@ -343,21 +345,21 @@ class Window {
         controlP5.addToggle("play" + indx)
             .setPosition(x, y)
             .setSize(btSize, btSize)
-            .setCaptionLabel("play/stop")
+            .setCaptionLabel("play/stop");
             // .setLabelVisible(false)
-            .setColorActive(color(recordColor[0],recordColor[1],recordColor[2]))
-            .setColorBackground(color(recordColor[0],recordColor[1],recordColor[2], 200))
-            .setColorForeground(color(recordColor[0],recordColor[1],recordColor[2], 180));
-            // .setColorBackground(color(255, 40));
+            // .setColorActive(color(recordColor[0], recordColor[1], recordColor[2]))
+            // .setColorBackground(color(recordColor[0], recordColor[1], recordColor[2], 200))
+            // .setColorForeground(color(recordColor[0], recordColor[1], recordColor[2], 180));
+        // .setColorBackground(color(255, 40));
         x = x + btSize + PD;
         controlP5.addToggle("record" + indx)
             .setPosition(x, y)
             .setSize(btSize, btSize)
-            .setCaptionLabel("record")
+            .setCaptionLabel("record");
             // .setLabelVisible(false)
-            .setColorActive(color(playColor[0],playColor[1],playColor[2]))
-            .setColorBackground(color(playColor[0],playColor[1],playColor[2], 200))
-            .setColorForeground(color(playColor[0],playColor[1],playColor[2], 180));
+            // .setColorActive(color(playColor[0], playColor[1], playColor[2]))
+            // .setColorBackground(color(playColor[0], playColor[1], playColor[2], 200))
+            // .setColorForeground(color(playColor[0], playColor[1], playColor[2], 180));
     }
 }
   static public void main(String[] passedArgs) {

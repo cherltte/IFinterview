@@ -24,10 +24,11 @@ void setup() {
 void draw() {
     background(0);
     stroke(255);
-    controlP5.draw();
+
     audioController.display();
     videoController.display();
     videoController.update();
+    controlP5.draw();
     for (Window win: windows)
         win.display();
 }
