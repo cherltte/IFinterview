@@ -4,6 +4,9 @@ import processing.video.*;
 import com.hamoid.*;
 import controlP5.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 ControlP5 controlP5;
 
 PApplet sketch = this;
