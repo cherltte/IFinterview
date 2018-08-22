@@ -33,9 +33,6 @@ class Window {
             case (2):
                 playController();
                 break;
-            case (3):
-                naviController(mode);
-                break;
             case (4):
                 break;
         }
@@ -65,11 +62,6 @@ class Window {
                 x = (int) xy.x;
                 y = (int) xy.y;
                 w = (int) size.x - sliderW;
-                break;
-            case (3):
-                x = (int) xy.x;
-                y = (int) xy.y;
-                w = (int) width - PD * 2;
                 break;
         }
         controlP5.addSlider("navi" + indx)
