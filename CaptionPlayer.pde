@@ -4,6 +4,7 @@ class CaptionPlayer {
   static final int DISPLAYING_TIME = 60;
   final int duration;
   int currentTime;
+  int nextCaptionIdx;
 
   CaptionPlayer(String fileName) {
     String[] lines = loadStrings(fileName);
@@ -30,15 +31,42 @@ class CaptionPlayer {
   }
 
 
+  void play() {
+    currentTime++;
+
+    while(!displayingCaptions.isEmpty()) {
+      Caption c = displayingCaptions.get(0);
+
+      if (c.time <= currentTime - DISPLAYING_TIME)
+        displayingCaptions.remove(0);
+      else
+        break;
+    }
+
+    for (int i=nextCaptionIdx; i<captions.length; i++) {
+      Caption c = captions[i];
+
+      if (c.time <= currentTime) {
+        displayingCaptions.add(c);
+        nextCaptionIdx = i+1;
+      }
+      else
+        break;
+    }
+  }
+
+
   void jump(int time) {
     time = constrain(time, 0, duration);
 
     currentTime = time;
 
     displayingCaptions.clear();
-    for (Caption c : captions) {
+    for (int i=0; i<captions.length; i++) {
+      Caption c = captions[i];
       if ((c.time > currentTime - DISPLAYING_TIME) && (c.time <= currentTime)) {
         displayingCaptions.add(c);
+        nextCaptionIdx = i+1;
       }
     }
   }
