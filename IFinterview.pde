@@ -74,6 +74,6 @@ void keyReleased() {
         // player.play();
     }
     if (key == ' ') 
-        playController.isPlaying =! playController.isPlaying;
+        playController.playToggle.setValue(!playController.isPlaying);
         
 }
