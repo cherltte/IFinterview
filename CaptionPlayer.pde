@@ -2,6 +2,7 @@ class CaptionPlayer {
   Caption[] captions;
   List<Caption> displayingCaptions;
   static final int DISPLAYING_TIME = 60;
+  final int startTime;
   final int duration;
   int targetWindow;
   String targetSubject;
@@ -14,8 +15,10 @@ class CaptionPlayer {
     this.captions = new Caption[lines.length - 1];
     for (int i=0; i<captions.length; i++)
       captions[i] = new Caption(lines[i+1]);
+      
+    this.startTime = captions[0].time;
 
-    this.duration = captions[captions.length-1].time;
+    this.duration = captions[captions.length-1].time - captions[0].time;
 
     this.displayingCaptions = new ArrayList<Caption>();
 
@@ -68,7 +71,7 @@ class CaptionPlayer {
   void jump(int time) {
     time = constrain(time, 0, duration);
 
-    currentTime = time;
+    currentTime = time + startTime;
 
     displayingCaptions.clear();
     nextCaptionIdx = 0;
@@ -96,7 +99,12 @@ class Caption {
     int commaIdx = s.indexOf(",");
     int commaIdx2 = s.indexOf(",", commaIdx+1);
 
-    this.time = Integer.parseInt(s.substring(0, commaIdx));
+    String timeString = s.substring(0, commaIdx);
+    String[] timeWords = timeString.split(":");
+    time = int(Integer.parseInt(timeWords[0]) * FRAMERATE * 60 * 60
+               + Integer.parseInt(timeWords[1]) * FRAMERATE * 60
+               + Float.parseFloat(timeWords[2]) * FRAMERATE);
+    
     this.subject = s.substring(commaIdx+1, commaIdx2);
     this.content = s.substring(commaIdx2+1, s.length());
   }

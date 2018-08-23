@@ -30,8 +30,8 @@ void setup() {
     videoController1 = new VideoController("processing-movie.mov", 1);
     videoController2 = new VideoController("processing-movie2.mp4", 5);
     videoRecorder = new VideoRecorder();
-    captionPlayer1 = new CaptionPlayer("024358.csv", "Operator", 0);
-    captionPlayer2 = new CaptionPlayer("024358.csv", "Visitor", 4);
+    captionPlayer1 = new CaptionPlayer("021921.csv", "Operator", 0);
+    captionPlayer2 = new CaptionPlayer("021921.csv", "Visitor", 4);
     frameRate(FRAMERATE);
 }
 
