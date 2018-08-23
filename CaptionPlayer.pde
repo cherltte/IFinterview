@@ -32,6 +32,9 @@ class CaptionPlayer {
 
 
   void draw() {
+    if (!SHOW_OPERATOR && targetSubject=="Operator")
+      return;
+
     float x = windows[targetWindow].xy.x + windows[targetWindow].PD;
     float y = windows[targetWindow].xy.y + windows[targetWindow].PD + 16;
     for (Caption c : displayingCaptions) {
@@ -45,6 +48,9 @@ class CaptionPlayer {
 
 
   void play() {
+    if (!SHOW_OPERATOR && targetSubject=="Operator")
+      return;
+
     currentTime++;
 
     while(!displayingCaptions.isEmpty()) {
@@ -70,6 +76,9 @@ class CaptionPlayer {
 
 
   void jump(int time) {
+    if (!SHOW_OPERATOR && targetSubject=="Operator")
+      return;
+
     time = constrain(time, 0, duration);
 
     currentTime = time + startTime;

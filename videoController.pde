@@ -2,6 +2,7 @@ class VideoController {
     float soundDuration = 10.03; // in seconds
     final Movie view;
     final int targetWindow;
+  String targetSubject;
     private final float w, h;
     static final int DELAY = 5;
     int syncValue;
@@ -10,9 +11,10 @@ class VideoController {
     static final int UPDATE_RATE = 10;
     static final int NONE = -10000;
 
-    VideoController(String videoName, int targetWindow) {
+    VideoController(String videoName, String targetSubject, int targetWindow) {
         this.view = new Movie(sketch, videoName);
         this.targetWindow = targetWindow;
+        this.targetSubject = targetSubject;
         this.syncValue = 0;
         this.reservedJump = NONE;
         this.reservedSync = NONE;
@@ -30,6 +32,9 @@ class VideoController {
         view.jump(0);
     }
     void display() {
+        if (!SHOW_OPERATOR && targetSubject=="Operator")
+          return;
+
         //draw imported movie
         image(view, windows[targetWindow].xy.x, windows[targetWindow].xy.y, w, h);
 
@@ -59,21 +64,29 @@ class VideoController {
 
 
     void play() {
+        if (!SHOW_OPERATOR && targetSubject=="Operator")
+          return;
         view.play();
     }
 
 
     void pause() {
+        if (!SHOW_OPERATOR && targetSubject=="Operator")
+          return;
         view.pause();
     }
 
 
     void jump(int frame) {
+        if (!SHOW_OPERATOR && targetSubject=="Operator")
+          return;
         reservedJump = frame;
     }
 
 
     void sync(int syncValue) {
+        if (!SHOW_OPERATOR && targetSubject=="Operator")
+          return;
         reservedSync = syncValue;
     }
 }

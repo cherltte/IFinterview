@@ -35,16 +35,18 @@
        .plugTo(this)
        .setBroadcast(true);
 
-     this.syncSlider1 = controlP5.addSlider("syncSlider1")
-       .setBroadcast(false)
-       .setPosition(windows[1].xy.x, windows[1].xy.y)
-       .setSize(int(windows[1].size.x - windows[1].sliderW), int(windows[1].sliderW))
-       .setRange(-120, 120)
-       .setColorForeground(color(255, 180))
-       .setColorBackground(color(255, 80))
-       .setLabelVisible(false)
-       .plugTo(this)
-       .setBroadcast(true);
+
+     if (SHOW_OPERATOR)
+       this.syncSlider1 = controlP5.addSlider("syncSlider1")
+         .setBroadcast(false)
+         .setPosition(windows[1].xy.x, windows[1].xy.y)
+         .setSize(int(windows[1].size.x - windows[1].sliderW), int(windows[1].sliderW))
+         .setRange(-120, 120)
+         .setColorForeground(color(255, 180))
+         .setColorBackground(color(255, 80))
+         .setLabelVisible(false)
+         .plugTo(this)
+         .setBroadcast(true);
 
      this.syncSlider2 = controlP5.addSlider("syncSlider2")
        .setBroadcast(false)
