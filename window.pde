@@ -1,7 +1,7 @@
 Range navi;
 class Window {
     private Indicator[] indicators = new Indicator[2];
-    PVector size, xy;
+    PVector size, xy, volumeXY;
     int indx;
     private final Integer sliderW = 10;
     private final Integer PD = 8;
@@ -13,6 +13,7 @@ class Window {
     Window(int indx, PVector xy, int w, int h, int mode) {
         this.xy = xy;
         this.indx = indx;
+        volumeXY = xy;
         size = new PVector(w, h);
         for (int i = 0; i < indicators.length; i++)
             indicators[i] = new Indicator(indx, i);
@@ -64,9 +65,10 @@ class Window {
     }
 
     void volumeController() {
+        int movieSize = 398;
         controlP5.addSlider("volume" + indx)
-            .setPosition(xy.x + size.x - sliderW, xy.y + sliderW)
-            .setSize(sliderW, (int) size.y - sliderW)
+            .setPosition(volumeXY.x, volumeXY.y)
+            .setSize(sliderW, movieSize)
             .setRange(0, 255)
             .setNumberOfTickMarks(8)
             .setLabelVisible(false)

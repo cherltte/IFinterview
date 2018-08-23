@@ -2,7 +2,7 @@ class VideoController {
     float soundDuration = 10.03; // in seconds
     final Movie view;
     final int targetWindow;
-  String targetSubject;
+    String targetSubject;
     private final float w, h;
     static final int DELAY = 5;
     int syncValue;
@@ -32,17 +32,22 @@ class VideoController {
         view.jump(0);
     }
     void display() {
-        if (!SHOW_OPERATOR && targetSubject=="Operator")
-          return;
 
+        if (!SHOW_OPERATOR && targetSubject == "Operator")
+            return;
+
+        int movieSize = 398;
+        int PD = 8;
+        float _x = windows[targetWindow].xy.x;
+        float _y = windows[targetWindow].xy.y;
         //draw imported movie
-        image(view, windows[targetWindow].xy.x, windows[targetWindow].xy.y, w, h);
+        image(view, _x, _y, w, h);
 
         pushStyle();
         textSize(11);
         float time = view.time();
         String text = String.format("%02d:%05.2f (%.2f)", int(time) / 60, time, syncValue / FRAMERATE);
-        text(text, windows[targetWindow].xy.x, windows[targetWindow].xy.y + windows[targetWindow].size.y);
+        text(text, _x, _y + movieSize + windows[targetWindow].sliderW + +PD + PD / 2);
         popStyle();
 
         if ((frameCount % UPDATE_RATE == 0) && (reservedJump != NONE)) {
@@ -64,29 +69,29 @@ class VideoController {
 
 
     void play() {
-        if (!SHOW_OPERATOR && targetSubject=="Operator")
-          return;
+        if (!SHOW_OPERATOR && targetSubject == "Operator")
+            return;
         view.play();
     }
 
 
     void pause() {
-        if (!SHOW_OPERATOR && targetSubject=="Operator")
-          return;
+        if (!SHOW_OPERATOR && targetSubject == "Operator")
+            return;
         view.pause();
     }
 
 
     void jump(int frame) {
-        if (!SHOW_OPERATOR && targetSubject=="Operator")
-          return;
+        if (!SHOW_OPERATOR && targetSubject == "Operator")
+            return;
         reservedJump = frame;
     }
 
 
     void sync(int syncValue) {
-        if (!SHOW_OPERATOR && targetSubject=="Operator")
-          return;
+        if (!SHOW_OPERATOR && targetSubject == "Operator")
+            return;
         reservedSync = syncValue;
     }
 }

@@ -22,7 +22,7 @@ class AudioController {
 
         in = minim.getLineIn(Minim.STEREO, 2048);
 
-        recorder = minim.createRecorder( in , "myrecording.wav");
+        recorder = minim.createRecorder( in , settings.title + ".wav");
 
         out = minim.getLineOut(Minim.STEREO);
 

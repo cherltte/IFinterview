@@ -127,7 +127,7 @@ class Caption {
 
   void display(float x, float y) {
     pushStyle();
-    textSize(12);
+    textSize(10);
     text(content, x, y);
     popStyle();
   }

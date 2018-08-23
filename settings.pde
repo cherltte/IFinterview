@@ -31,7 +31,7 @@ class SETTING {
         int m = month();
         int y = year();
         int h = hour();
-        title = "Interview_" + String.valueOf(m) + "." + String.valueOf(d) + "." + String.valueOf(y) + "." + String.valueOf(h);
+        title = "Interview_" + String.valueOf(m) + "." + String.valueOf(d) + "." + String.valueOf(y) + "." + String.valueOf(h) + ":00";
         controlP5 = new ControlP5(sketch);
         controlP5.setAutoDraw(false);
         smooth();

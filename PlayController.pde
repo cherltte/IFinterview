@@ -15,6 +15,7 @@
 
 
    PlayController() {
+
      this.isPlaying = false;
      this.duration = captionPlayer1.getDuration();
 
@@ -22,36 +23,47 @@
        .setPosition(windows[3].xy.x + windows[2].PD, windows[3].xy.y + windows[3].PD)
        .setSize(int(windows[3].size.y - windows[2].PD * 2), int(windows[3].size.y - windows[3].PD * 2))
        .setCaptionLabel("play/stop")
-      //  .setLabelVisible(false)
+       //  .setLabelVisible(false)
        .plugTo(this);
 
      this.timeSlider = controlP5.addSlider("timeSlider")
        .setBroadcast(false)
        .setPosition(windows[2].xy.x, windows[2].xy.y)
-       .setSize(width - windows[2].PD * 2, windows[2].sliderW)
+       .setSize(width - windows[2].PD * 2, int(windows[2].sliderW*2.5))
        .setRange(0, duration)
        .setColorForeground(color(255, 180))
        .setColorBackground(color(255, 80))
        .setLabelVisible(false)
        .plugTo(this)
        .setBroadcast(true);
+       
+     int movieSize = 398;
+     int PD = 8;
+     float[] x = {
+       windows[1].xy.x,
+       windows[5].xy.x
+     };
+     float[] y = {
+       windows[1].xy.y + movieSize + PD / 2,
+       windows[5].xy.y + movieSize + PD / 2
+     };
 
      if (SHOW_OPERATOR)
        this.syncBigSlider1 = controlP5.addSlider("syncBigSlider1")
-         .setBroadcast(false)
-         .setPosition(windows[1].xy.x, windows[1].xy.y)
-         .setSize(int(windows[1].size.x - windows[1].sliderW), int(windows[1].sliderW))
-         .setRange(-60, 60)
-         .setColorForeground(color(255, 180))
-         .setColorBackground(color(255, 80))
-         .setLabelVisible(false)
-         .plugTo(this)
-         .setBroadcast(true);
+       .setBroadcast(false)
+       .setPosition(x[0], y[0])
+       .setSize(int(windows[1].size.x), int(windows[1].sliderW))
+       .setRange(-60, 60)
+       .setColorForeground(color(255, 180))
+       .setColorBackground(color(255, 80))
+       .setLabelVisible(false)
+       .plugTo(this)
+       .setBroadcast(true);
 
      this.syncBigSlider2 = controlP5.addSlider("syncBigSlider2")
        .setBroadcast(false)
-       .setPosition(windows[5].xy.x, windows[5].xy.y)
-       .setSize(int(windows[5].size.x - windows[5].sliderW), int(windows[5].sliderW))
+       .setPosition(x[1], y[1])
+       .setSize(int(windows[5].size.x), int(windows[5].sliderW))
        .setRange(-60, 60)
        .setColorForeground(color(255, 180))
        .setColorBackground(color(255, 80))
@@ -61,20 +73,20 @@
 
      if (SHOW_OPERATOR)
        this.syncSlider1 = controlP5.addSlider("syncSlider1")
-         .setBroadcast(false)
-         .setPosition(windows[1].xy.x, windows[1].xy.y + windows[1].sliderW + windows[1].PD)
-         .setSize(int(windows[1].size.x - windows[1].sliderW), int(windows[1].sliderW))
-         .setRange(-120, 120)
-         .setColorForeground(color(255, 180))
-         .setColorBackground(color(255, 80))
-         .setLabelVisible(false)
-         .plugTo(this)
-         .setBroadcast(true);
+       .setBroadcast(false)
+       .setPosition(x[0], windows[1].xy.y + windows[1].sliderW + windows[1].PD)
+       .setSize(int(windows[1].size.x), int(windows[1].sliderW))
+       .setRange(-120, 120)
+       .setColorForeground(color(255, 180))
+       .setColorBackground(color(255, 80))
+       .setLabelVisible(false)
+       .plugTo(this)
+       .setBroadcast(true);
 
      this.syncSlider2 = controlP5.addSlider("syncSlider2")
        .setBroadcast(false)
-       .setPosition(windows[5].xy.x, windows[5].xy.y + windows[5].sliderW + windows[5].PD)
-       .setSize(int(windows[5].size.x - windows[5].sliderW), int(windows[5].sliderW))
+       .setPosition(x[0], windows[5].xy.y + windows[5].sliderW + windows[5].PD)
+       .setSize(int(windows[5].size.x), int(windows[5].sliderW))
        .setRange(-120, 120)
        .setColorForeground(color(255, 180))
        .setColorBackground(color(255, 80))
@@ -115,7 +127,7 @@
      textSize(11);
      float time = timeSlider.getValue() / FRAMERATE;
      String text = String.format("%02d:%05.2f", int(time) / 60, time % 60);
-     text(text, windows[2].xy.x, windows[2].xy.y + windows[2].size.y);
+     text(text, windows[2].xy.x, windows[2].xy.y + windows[2].sliderW*2.5 + 8);
      popStyle();
    }
 
