@@ -4,6 +4,7 @@
 
    private Toggle playToggle;
    private Slider timeSlider;
+   private Slider syncBigSlider1, syncBigSlider2;
    private Slider syncSlider1, syncSlider2;
 
    private final Textlabel[] playAnnotation = new Textlabel[2];
@@ -35,11 +36,33 @@
        .plugTo(this)
        .setBroadcast(true);
 
+     if (SHOW_OPERATOR)
+       this.syncBigSlider1 = controlP5.addSlider("syncBigSlider1")
+         .setBroadcast(false)
+         .setPosition(windows[1].xy.x, windows[1].xy.y)
+         .setSize(int(windows[1].size.x - windows[1].sliderW), int(windows[1].sliderW))
+         .setRange(-60, 60)
+         .setColorForeground(color(255, 180))
+         .setColorBackground(color(255, 80))
+         .setLabelVisible(false)
+         .plugTo(this)
+         .setBroadcast(true);
+
+     this.syncBigSlider2 = controlP5.addSlider("syncBigSlider2")
+       .setBroadcast(false)
+       .setPosition(windows[5].xy.x, windows[5].xy.y)
+       .setSize(int(windows[5].size.x - windows[5].sliderW), int(windows[5].sliderW))
+       .setRange(-60, 60)
+       .setColorForeground(color(255, 180))
+       .setColorBackground(color(255, 80))
+       .setLabelVisible(false)
+       .plugTo(this)
+       .setBroadcast(true);
 
      if (SHOW_OPERATOR)
        this.syncSlider1 = controlP5.addSlider("syncSlider1")
          .setBroadcast(false)
-         .setPosition(windows[1].xy.x, windows[1].xy.y)
+         .setPosition(windows[1].xy.x, windows[1].xy.y + windows[1].sliderW + windows[1].PD)
          .setSize(int(windows[1].size.x - windows[1].sliderW), int(windows[1].sliderW))
          .setRange(-120, 120)
          .setColorForeground(color(255, 180))
@@ -50,7 +73,7 @@
 
      this.syncSlider2 = controlP5.addSlider("syncSlider2")
        .setBroadcast(false)
-       .setPosition(windows[5].xy.x, windows[5].xy.y)
+       .setPosition(windows[5].xy.x, windows[5].xy.y + windows[5].sliderW + windows[5].PD)
        .setSize(int(windows[5].size.x - windows[5].sliderW), int(windows[5].sliderW))
        .setRange(-120, 120)
        .setColorForeground(color(255, 180))
@@ -121,19 +144,29 @@
    }
 
 
+   public void syncBigSlider1(int theValue) {
+     syncSlider(theValue, int(syncSlider1.getValue()), videoController1);
+   }
+
+
+   public void syncBigSlider2(int theValue) {
+     syncSlider(theValue, int(syncSlider2.getValue()), videoController2);
+   }
+
+
    public void syncSlider1(int theValue) {
-     syncSlider(theValue, videoController1);
+     syncSlider(int(syncBigSlider1.getValue()), theValue, videoController1);
    }
 
 
    public void syncSlider2(int theValue) {
-     syncSlider(theValue, videoController2);
+     syncSlider(int(syncBigSlider2.getValue()), theValue, videoController2);
    }
 
 
-   public void syncSlider(int theValue, VideoController targetVideoController) {
+   public void syncSlider(int bigValue, int theValue, VideoController targetVideoController) {
      playToggle.setValue(false);
 
-     targetVideoController.sync(theValue);
+     targetVideoController.sync(int(bigValue * FRAMERATE) + theValue);
    }
  }
