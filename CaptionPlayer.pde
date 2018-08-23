@@ -86,6 +86,11 @@ class CaptionPlayer {
       }
     }
   }
+
+
+  int getDuration() {
+    return duration;
+  }
 }
 
 
