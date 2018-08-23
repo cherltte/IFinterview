@@ -1,7 +1,7 @@
 class CaptionPlayer {
   Caption[] captions;
   List<Caption> displayingCaptions;
-  static final int DISPLAYING_TIME = 60;
+  final int DISPLAYING_TIME = int(FRAMERATE * 2);
   final int TIME_PADDING = int(FRAMERATE * 5);
   final int startTime;
   final int duration;
