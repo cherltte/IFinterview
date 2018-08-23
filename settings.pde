@@ -24,8 +24,14 @@ class SETTING {
         4,
         4
     };
+    private final String title;
 
     SETTING() {
+        int d = day();
+        int m = month();
+        int y = year();
+        int h = hour();
+        title = "Interview_" + String.valueOf(m) + "." + String.valueOf(d) + "." + String.valueOf(y) + "." + String.valueOf(h);
         controlP5 = new ControlP5(sketch);
         controlP5.setAutoDraw(false);
         smooth();
@@ -55,5 +61,13 @@ class SETTING {
             windows[i] = new Window(i, winPos, winW, winH[i], NUM_WINMODE[i]);
         }
 
+        controlP5.addTextfield("interview#")
+            .setPosition(windows[3].xy.x + windows[3].size.x - 200, windows[3].xy.y + 5 * 8)
+            .setSize(200, 20);
+
     }
+}
+public void input(String theText) {
+    // automatically receives results from controller input
+    println("a textfield event for controller 'input' : " + theText);
 }

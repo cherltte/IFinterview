@@ -34,10 +34,10 @@ class VideoController {
         image(view, windows[targetWindow].xy.x, windows[targetWindow].xy.y, w, h);
 
         pushStyle();
-        textSize(13);
+        textSize(11);
         float time = view.time();
-        String text = String.format("%02d:%05.2f (%.2f)", int(time)/60, time, syncValue/FRAMERATE);
-        text(text, windows[targetWindow].xy.x, windows[targetWindow].xy.y+windows[targetWindow].size.y);
+        String text = String.format("%02d:%05.2f (%.2f)", int(time) / 60, time, syncValue / FRAMERATE);
+        text(text, windows[targetWindow].xy.x, windows[targetWindow].xy.y + windows[targetWindow].size.y);
         popStyle();
 
         if ((frameCount % UPDATE_RATE == 0) && (reservedJump != NONE)) {

@@ -37,7 +37,6 @@ void setup() {
 
 void draw() {
     background(0);
-    stroke(255);
     playController.draw();
     audioController.display();
     videoController1.display();
@@ -48,15 +47,13 @@ void draw() {
     captionPlayer2.draw();
     for (Window win: windows)
         win.display();
+
+    for (Indicator indicator: windows[3].indicators)
+        indicator.draw();
 }
 
 void keyReleased() {
-
     if (!recorded && key == 'r') {
-        // to indicate that you want to start or stop capturing audio data, 
-        // you must callstartRecording() and stopRecording() on the AudioRecorder object. 
-        // You can start and stop as many times as you like, the audio data will 
-        // be appended to the end of to the end of the file. 
         if (recorder.isRecording()) {
             recorder.endRecord();
             recorded = true;
@@ -67,15 +64,6 @@ void keyReleased() {
         }
     }
     if (recorded && key == 's') {
-        // we've filled the file out buffer, 
-        // now write it to a file of the type we specified in setup
-        // in the case of buffered recording, 
-        // this will appear to freeze the sketch for sometime, if the buffer is large
-        // in the case of streamed recording, 
-        // it will not freeze as the data is already in the file and all that is being done
-        // is closing the file.
-        // save returns the recorded audio in an AudioRecordingStream, 
-        // which we can then play with a FilePlayer
         if (player != null) {
             videoExport.endMovie();
             player.unpatch(out);
@@ -83,6 +71,9 @@ void keyReleased() {
         }
         player = new FilePlayer(recorder.save());
         player.patch(out);
-        player.play();
+        // player.play();
     }
+    if (key == ' ') 
+        playController.isPlaying =! playController.isPlaying;
+        
 }

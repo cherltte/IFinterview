@@ -1,8 +1,9 @@
 Range navi;
 class Window {
+    private Indicator[] indicators = new Indicator[2];
     PVector size, xy;
     int indx;
-    private final Integer sliderW = 20;
+    private final Integer sliderW = 10;
     private final Integer PD = 8;
     private final int[] recordColor = {
         100,
@@ -13,9 +14,12 @@ class Window {
         this.xy = xy;
         this.indx = indx;
         size = new PVector(w, h);
+        for (int i = 0; i < indicators.length; i++)
+            indicators[i] = new Indicator(indx, i);
+
         cp5(mode);
     }
-    
+
     void cp5(int mode) {
         switch (mode) {
             case (1):
@@ -30,13 +34,33 @@ class Window {
     }
 
     void display() {
-        pushStyle();
-        stroke(80);
-        noFill();
-        rect(xy.x, xy.y, size.x, size.y);
-        fill(250, 0, 0);
-        text(indx, xy.x, xy.y);
-        popStyle();
+        if (indx == 0) {
+            pushStyle();
+
+            int textArea = 200;
+            int pd = windows[3].PD;
+            float _x = windows[3].xy.x + windows[3].size.x - textArea;
+            float _y = windows[3].xy.y + pd;
+
+            int d = day(); 
+            int m = month();
+            int y = year(); 
+            int h = hour();
+            int min = minute();
+            int s = second();
+
+            String date = "DATE: " + String.valueOf(m) + ". " + String.valueOf(d) + ". " + String.valueOf(y);
+            text(date, _x, _y);
+            String time = "TIME: " + String.valueOf(h) + ":" + String.valueOf(min) + ":" + String.valueOf(s);
+            text(time, _x, _y + 2 * pd);
+
+            // stroke(80);
+            // noFill();
+            // rect(xy.x, xy.y, size.x, size.y);
+            // fill(250, 0, 0);
+            // text(indx, xy.x, xy.y);
+            popStyle();
+        }
     }
 
     void volumeController() {
@@ -59,9 +83,5 @@ class Window {
             .setPosition(x, y)
             .setSize(btSize, btSize)
             .setCaptionLabel("record");
-            // .setLabelVisible(false)
-            // .setColorActive(color(playColor[0], playColor[1], playColor[2]))
-            // .setColorBackground(color(playColor[0], playColor[1], playColor[2], 200))
-            // .setColorForeground(color(playColor[0], playColor[1], playColor[2], 180));
     }
 }
