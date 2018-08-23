@@ -2,6 +2,7 @@ class CaptionPlayer {
   Caption[] captions;
   List<Caption> displayingCaptions;
   static final int DISPLAYING_TIME = 60;
+  final int TIME_PADDING = int(FRAMERATE * 5);
   final int startTime;
   final int duration;
   int targetWindow;
@@ -16,9 +17,9 @@ class CaptionPlayer {
     for (int i=0; i<captions.length; i++)
       captions[i] = new Caption(lines[i+1]);
       
-    this.startTime = captions[0].time;
+    this.startTime = captions[0].time - TIME_PADDING;
 
-    this.duration = captions[captions.length-1].time - captions[0].time;
+    this.duration = captions[captions.length-1].time - captions[0].time + TIME_PADDING * 2;
 
     this.displayingCaptions = new ArrayList<Caption>();
 
