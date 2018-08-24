@@ -17,7 +17,7 @@
    PlayController() {
 
      this.isPlaying = false;
-     this.duration = captionPlayer1.getDuration();
+     this.duration = int(FRAMERATE * 12 * 60);
 
      this.playToggle = controlP5.addToggle("playToggle")
        .setPosition(windows[3].xy.x + windows[2].PD, windows[3].xy.y + windows[3].PD)

@@ -9,3 +9,5 @@ build-tmp/
 builds/
 .vscode/
 myRecording.wav
+*.MOV
+data/visitor_interview.MOV

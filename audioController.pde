@@ -16,18 +16,21 @@ class AudioController {
         "REC: Press the [R] key to start recording.",
         "SAVE: Press the [S] key to save the recording."
     };
+    private boolean isCompleted = false;
 
     AudioController() {
         minim = new Minim(sketch);
 
         in = minim.getLineIn(Minim.STEREO, 2048);
 
-        recorder = minim.createRecorder( in , settings.title + ".wav");
+        recorder = minim.createRecorder( in , "save/" + settings.titles[0] + "/" + settings.titles[1] + "/" + settings.titles[0] + "_" + settings.titles[2] + ".wav");
 
         out = minim.getLineOut(Minim.STEREO);
 
         for (int i = 0; i < recordingAnnotation.length; i++)
             recordingAnnotation[i] = new Textlabel(controlP5, recordingText[i], int(windows[3].xy.x + (windows[3].size.y + windows[3].PD) * 2), int(windows[3].xy.y + windows[3].PD));
+
+        isCompleted = true;
     }
     void display() {
         drawWaveforms();
