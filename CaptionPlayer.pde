@@ -16,9 +16,9 @@ class CaptionPlayer {
     for (int i=0; i<captions.length; i++)
       captions[i] = new Caption(lines[i+1]);
       
-    this.startTime = captions[0].time - TIME_PADDING;
+    this.startTime = captions[0].time;
 
-    this.duration = captions[captions.length-1].time - captions[0].time + TIME_PADDING * 2;
+    this.duration = captions[captions.length-1].time - captions[0].time + TIME_PADDING;
 
     this.displayingCaptions = new ArrayList<Caption>();
 
