@@ -18,7 +18,10 @@
    PlayController() {
 
      this.isPlaying = false;
-     this.duration = int(FRAMERATE * 12 * 60);
+     this.duration = max(max(captionPlayer1.getDuration(),
+                             captionPlayer2.getDuration()),
+                         max(videoController1.getDuration(),
+                             videoController2.getDuration()));
      this.playStartTime = 0;
 
      this.playToggle = controlP5.addToggle("playToggle")

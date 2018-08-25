@@ -93,6 +93,11 @@ class VideoController {
             return;
         reservedSync = syncValue;
     }
+    
+    
+    public int getDuration() {
+      return int(view.duration() * FRAMERATE);
+    }
 }
 
 void movieEvent(Movie m) {
