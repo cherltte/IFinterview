@@ -123,6 +123,11 @@
      text(text, windows[2].xy.x, windows[2].xy.y + windows[2].sliderW*2.5 + 8);
      popStyle();
    }
+   
+   
+   public int getTime() {
+     return (int) timeSlider.getValue();
+   }
 
 
    public void playToggle(boolean theValue) {

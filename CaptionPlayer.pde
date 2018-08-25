@@ -7,7 +7,6 @@ class CaptionPlayer {
   final int duration;
   int targetWindow;
   String targetSubject;
-  int currentTime;
   int nextCaptionIdx;
 
   CaptionPlayer(String fileName, String targetSubject, int targetWindow) {
@@ -54,7 +53,7 @@ class CaptionPlayer {
     if (!SHOW_OPERATOR && targetSubject=="Operator")
       return;
 
-    currentTime++;
+    int currentTime = playController.getTime() + startTime;
 
     while(!displayingCaptions.isEmpty()) {
       Caption c = displayingCaptions.get(0);
@@ -84,7 +83,7 @@ class CaptionPlayer {
 
     time = constrain(time, 0, duration);
 
-    currentTime = time + startTime;
+    int currentTime = time + startTime;
 
     displayingCaptions.clear();
     nextCaptionIdx = 0;
