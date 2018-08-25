@@ -114,14 +114,8 @@
        captionPlayer1.play();
        captionPlayer2.play();
 
-       videoController1.play();
-       videoController2.play();
-
        playAnnotation[0].draw(sketch);
      } else {
-       videoController1.pause();
-       videoController2.pause();
-
        playAnnotation[1].draw(sketch);
      }
 
