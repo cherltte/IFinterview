@@ -3,7 +3,7 @@ class VideoController {
     final Movie view;
     final int targetWindow;
     String targetSubject;
-    private final float w, h;
+    private final float w, h, x, y;
     static final int DELAY = 5;
     int syncValue;
     int reservedJump;
@@ -20,6 +20,11 @@ class VideoController {
         this.reservedSync = NONE;
 
         view.play();
+        view.pause();
+        view.jump(0);
+       
+        x = windows[targetWindow].xy.x;
+        y = windows[targetWindow].xy.y;
         while (view.height == 0 || view.width == 0) delay(DELAY);
         if (view.width > view.height) {
             w = windows[targetWindow].size.x;
@@ -28,26 +33,19 @@ class VideoController {
             h = windows[targetWindow].size.y;
             w = (view.width * windows[targetWindow].size.y) / view.height;
         }
-        view.pause();
-        view.jump(0);
     }
     void display() {
 
         if (!SHOW_OPERATOR && targetSubject == "Operator")
             return;
 
-        int movieSize = 398;
-        int PD = 8;
-        float _x = windows[targetWindow].xy.x;
-        float _y = windows[targetWindow].xy.y;
-        //draw imported movie
-        image(view, _x, _y, w, h);
+        image(view, x, y, w, h);
 
         pushStyle();
         textSize(11);
         float time = view.time();
         String text = String.format("%02d:%05.2f (%.2f)", int(time) / 60, time, syncValue / FRAMERATE);
-        text(text, _x, _y + movieSize + windows[targetWindow].sliderW + +PD + PD / 2);
+        text(text, x, y + (int) h + (playController.sliderW + settings.PD) * 2);
         popStyle();
 
         if ((frameCount % UPDATE_RATE == 0) && (reservedJump != NONE)) {
@@ -93,10 +91,10 @@ class VideoController {
             return;
         reservedSync = syncValue;
     }
-    
-    
+
+
     public int getDuration() {
-      return int(view.duration() * FRAMERATE);
+        return int(view.duration() * FRAMERATE);
     }
 }
 

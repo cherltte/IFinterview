@@ -28,7 +28,7 @@ class SETTING {
         4,
         4
     };
-    private final String title;
+    // private final String title;
 
     SETTING() {
         int d = day();
@@ -37,7 +37,7 @@ class SETTING {
         int h = hour();
         int min = minute();
         int sec = second();
-        title = "Interview_" + String.valueOf(m) + "." + String.valueOf(d) + "." + String.valueOf(y) + "_" + String.valueOf(h) + "." + String.valueOf(min) + "." + String.valueOf(sec);
+       
         titles[2] = String.valueOf(m) + "." + String.valueOf(d) + "." + String.valueOf(y) + "_" + String.valueOf(h) + "." + String.valueOf(min) + "." + String.valueOf(sec);
         controlP5 = new ControlP5(sketch);
         controlP5_setup = new ControlP5(sketch);
@@ -45,10 +45,6 @@ class SETTING {
         controlP5_setup.setAutoDraw(false);
         smooth();
         windows();
-        controlP5.addTextfield("interview#")
-            .setPosition(windows[3].xy.x + windows[3].size.x - 200, windows[3].xy.y + 5 * 8)
-            .setSize(200, 20);
-        
     }
 
     void windows() {
@@ -73,7 +69,5 @@ class SETTING {
             winPos = new PVector(x, y);
             windows[i] = new Window(i, winPos, winW, winH[i], NUM_WINMODE[i]);
         }
-
-
     }
 }

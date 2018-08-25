@@ -8,10 +8,6 @@ class SetInterviewController {
         int NUMTEXT = 2;
         int w = 200;
         int h = 28;
-        String[] titles = {
-            "type",
-            "session"
-        };
         String[] typeTitles = {
             "admin",
             "visitor"
@@ -26,7 +22,7 @@ class SetInterviewController {
             .addItem(typeTitles[1], 1);
         int indx = 0;
         for (Toggle t: rType.getItems()) {
-            t.getCaptionLabel().getStyle().moveMargin(0, 0, 0, int(-1 * (w / 2) / 2 - textWidth(titles[indx]) / 2));
+            t.getCaptionLabel().getStyle().moveMargin(0, 0, 0, int(-1 * (w / 2) / 2 - textWidth(typeTitles[indx]) / 2));
             indx++;
         }
 

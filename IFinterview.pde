@@ -69,7 +69,7 @@ void processInterview() {
     for (Indicator indicator: windows[3].indicators)
         indicator.draw();
     
-    if (recorded)
+    if (!recorded)
         videoRecorder.update();
 }
 
