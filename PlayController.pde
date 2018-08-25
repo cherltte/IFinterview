@@ -1,6 +1,7 @@
  public class PlayController {
    private int duration;
    private boolean isPlaying;
+   private int playStartTime;
 
    private Toggle playToggle;
    private Slider timeSlider;
@@ -18,6 +19,7 @@
 
      this.isPlaying = false;
      this.duration = int(FRAMERATE * 12 * 60);
+     this.playStartTime = 0;
 
      this.playToggle = controlP5.addToggle("playToggle")
        .setPosition(windows[3].xy.x + windows[2].PD, windows[3].xy.y + windows[3].PD)
@@ -106,7 +108,7 @@
      if (isPlaying) {
        timeSlider
          .setBroadcast(false)
-         .setValue(timeSlider.getValue() + 1)
+         .setValue((millis() - playStartTime) / 1000.0 * FRAMERATE)
          .setBroadcast(true);
 
        captionPlayer1.play();
@@ -138,6 +140,7 @@
      if (isPlaying) {
        videoController1.play();
        videoController2.play();
+       playStartTime = millis();
      } else {
        videoController1.pause();
        videoController2.pause();
