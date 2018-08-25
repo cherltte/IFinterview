@@ -34,6 +34,9 @@ class CaptionPlayer {
   void draw() {
     if (!SHOW_OPERATOR && targetSubject=="Operator")
       return;
+    
+    if (playController.isPlaying)
+      update();
 
     float x = windows[targetWindow].xy.x + windows[targetWindow].PD;
     float y = windows[targetWindow].xy.y + windows[targetWindow].PD + 16;
