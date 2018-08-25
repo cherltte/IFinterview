@@ -111,8 +111,8 @@
          .setValue((millis() - playStartTime) / 1000.0 * FRAMERATE)
          .setBroadcast(true);
 
-       captionPlayer1.play();
-       captionPlayer2.play();
+       captionPlayer1.update();
+       captionPlayer2.update();
 
        playAnnotation[0].draw(sketch);
      } else {

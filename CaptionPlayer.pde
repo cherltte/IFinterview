@@ -47,7 +47,7 @@ class CaptionPlayer {
   }
 
 
-  void play() {
+  void update() {
     if (!SHOW_OPERATOR && targetSubject=="Operator")
       return;
 
