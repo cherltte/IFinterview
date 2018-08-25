@@ -51,7 +51,6 @@ class VideoController {
         popStyle();
 
         if ((frameCount % UPDATE_RATE == 0) && (reservedJump != NONE)) {
-            println(reservedJump);
             view.play();
             view.jump((reservedJump + syncValue) / FRAMERATE);
             view.pause();
