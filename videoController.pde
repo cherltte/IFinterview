@@ -20,8 +20,6 @@ class VideoController {
         this.reservedSync = NONE;
 
         view.play();
-        view.pause();
-        view.jump(0);
        
         x = windows[targetWindow].xy.x;
         y = windows[targetWindow].xy.y;
@@ -33,6 +31,9 @@ class VideoController {
             h = windows[targetWindow].size.y;
             w = (view.width * windows[targetWindow].size.y) / view.height;
         }
+
+        view.pause();
+        view.jump(0);
     }
     void display() {
 
