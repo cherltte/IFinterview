@@ -96,12 +96,12 @@ void keyReleased() {
             recorded = true;
             recorder.endRecord();
             recorder.save();
-            videoExport.endMovie();
+            videoRecorder.end();
             delay(10);
             settings.mode = 2;
         } else {
             settings.initialTime = millis();
-            videoExport.startMovie();
+            videoRecorder.start();
             recorder.beginRecord();
         }
     }
