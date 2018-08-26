@@ -3,6 +3,7 @@ SetInterviewController setInterviewController;
 class SetInterviewController {
     private boolean isCompleted = false;
     private final int PD = 8;
+    private Textlabel info;
     SetInterviewController() {
         int pd = 20;
         int NUMTEXT = 2;
@@ -51,6 +52,22 @@ class SetInterviewController {
     }
 
     void draw() {
+        int c = 0;
+        String txt;
+
+        for (int i = 0; i < settings.titles.length; i++)
+            if (settings.titles[i] != null)
+                c++;
+
+        if (c == 3)
+            txt = "CLICK SAVE TO PROCEED: " + "  [" + settings.titles[0] + "]  [" + settings.titles[1] + "]";
+
+        else
+            txt = "PLEASE SELECT OPTIONS: " + "  [" + settings.titles[0] + "]  [" + settings.titles[1] + "]";
+
+        info = new Textlabel(controlP5, txt, width / 2 - (int) textWidth(txt) / 2, height / 2 - PD - 10);
+
+        info.draw(sketch);
         controlP5_setup.draw();
     }
 }

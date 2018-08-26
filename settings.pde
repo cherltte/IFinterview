@@ -5,6 +5,7 @@ class SETTING {
     private String[] titles = new String[3];
     private boolean isCompleted = false;
     private int mode = 0;
+    private int initialTime;
     private final int NUM_WINS = 8;
     private final int NUM_DIVISION = 22;
     private final int PD = 8;

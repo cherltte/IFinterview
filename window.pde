@@ -42,13 +42,19 @@ class Window {
                 "FRI"
             };
 
+            String sec = "" + ((millis() - settings.initialTime) / 1000) % 60;
+            String minute = "" + ((millis() - settings.initialTime) / (1000 * 60)) % 60;
+            String duration = "DURATION: ";
+
             String date = "DATE: " + String.valueOf(m) + ". " + String.valueOf(d) + ". " + String.valueOf(y);
             text(date, _x, _y);
             String time = "TIME: " + String.valueOf(h) + ":" + String.valueOf(min) + ":" + String.valueOf(s);
             text(time, _x, _y + 2 * pd);
             String info = "INFO: " + settings.titles[0] + "    " + days[int(settings.titles[1])];
             text(info, _x, _y + 4 * pd);
-
+            if (settings.initialTime != 0)
+                duration = (settings.initialTime != 0) ? duration + minute + ":" + sec : duration + "NOT STARTED";
+            text(duration, _x, _y + 6 * pd);
             popStyle();
         }
         // stroke(80);
@@ -56,16 +62,5 @@ class Window {
         // rect(xy.x, xy.y, size.x, size.y);
         // fill(250, 0, 0);
         // text(indx, xy.x, xy.y);
-    }
-
-    void playController() {
-        int x = (int) xy.x + PD;
-        int y = (int) xy.y + PD;
-        int btSize = (int) size.y - PD * 2;
-        x = x + btSize + PD;
-        controlP5.addToggle("record" + indx)
-            .setPosition(x, y)
-            .setSize(btSize, btSize)
-            .setCaptionLabel("record");
     }
 }

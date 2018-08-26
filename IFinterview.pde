@@ -27,10 +27,9 @@ public void settings() {
 }
 void setup() {
     settings = new SETTING();
-    // audioController = new AudioController();
     videoController1 = new VideoController("operator_interview.mov", "Operator", 1);
     videoController2 = new VideoController("visitor_interview.mov", "Visitor", 5);
-    // videoRecorder = new VideoRecorder();
+
     captionPlayer1 = new CaptionPlayer("log.csv", "Operator", 0);
     captionPlayer2 = new CaptionPlayer("log.csv", "Visitor", 4);
     playController = new PlayController();
@@ -47,6 +46,9 @@ void draw() {
             break;
         case (1):
             processInterview();
+            break;
+        case (2):
+            terminateInterview();
             break;
     }
 }
@@ -68,9 +70,21 @@ void processInterview() {
 
     for (Indicator indicator: windows[3].indicators)
         indicator.draw();
-    
+
     if (!recorded)
         videoRecorder.update();
+}
+void terminateInterview() {
+    pushMatrix();
+    translate(width / 2, height / 2 - 50);
+    String videoDataInfo = settings.titles[0] + "_" + settings.titles[2] + ".mp4";
+    String audioDataInfo = settings.titles[0] + "_" + settings.titles[2] + ".wave";
+    String saveMessage = "Data Have Been Saved.";
+    String byeMessage = "Thank you for your help!";
+    text(videoDataInfo + "  " + saveMessage, -textWidth(videoDataInfo + "  " + saveMessage) / 2, 0);
+    text(audioDataInfo + "  " + saveMessage, -textWidth(audioDataInfo + "  " + saveMessage) / 2, 0 + 10);
+    text(byeMessage, -textWidth(byeMessage) / 2, 0 + 40);
+    popMatrix();
 }
 
 void keyReleased() {
@@ -81,10 +95,12 @@ void keyReleased() {
         if (recorder.isRecording()) {
             recorded = true;
             recorder.endRecord();
+            recorder.save();
             videoExport.endMovie();
             delay(10);
-            exit();
+            settings.mode = 2;
         } else {
+            settings.initialTime = millis();
             videoExport.startMovie();
             recorder.beginRecord();
         }
@@ -92,5 +108,10 @@ void keyReleased() {
 
     if (key == ' ')
         playController.playToggle.setValue(!playController.isPlaying);
+}
 
+@ Override void exit() {
+    videoController1.view.stop();
+    videoController2.view.stop();
+    super.exit();
 }
