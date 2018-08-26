@@ -168,7 +168,7 @@
      if (isPlaying) {
        videoController1.play();
        videoController2.play();
-       playStartTime = millis();
+       playStartTime = millis() - int(timeSlider.getValue() / FRAMERATE * 1000.0);
      } else {
        videoController1.pause();
        videoController2.pause();
