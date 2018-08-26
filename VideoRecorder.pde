@@ -16,7 +16,6 @@ class VideoRecorder {
             return;
 
         int framesToSave = floor((millis() - startMillis) / 1000.0 * FRAMERATE) - savedFrames;
-        println(frameRate, framesToSave);
  
         for (int i=0; i<framesToSave; i++) {
             videoExport.saveFrame();
