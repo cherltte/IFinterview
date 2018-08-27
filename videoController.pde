@@ -45,7 +45,7 @@ class VideoController {
         pushStyle();
         textSize(11);
         float time = view.time();
-        String text = String.format("%02d:%05.2f (%.2f)", int(time) / 60, time, syncValue / FRAMERATE);
+        String text = String.format("%02d:%05.2f (+%.2f)", int(time) / 60, time, syncValue / FRAMERATE);
         text(text, x, y + (int) h + (playController.sliderW + settings.PD) * 2);
         popStyle();
 
