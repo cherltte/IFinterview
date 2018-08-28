@@ -114,11 +114,11 @@
        playAnnotation[i] = new Textlabel(controlP5, playText[i], int(windows[3].xy.x + (windows[3].size.y + windows[3].PD) * 2), int(windows[3].xy.y + windows[3].PD * 4));
 
      this.volume1 = controlP5.addSlider("volume1")
-       .setPosition(videoController1.x - sliderW, videoController1.y)
+       .setPosition(videoController1.x, videoController1.y)
        .setSize(sliderW, (int) videoController1.h)
        .setRange(0, 1)
-       .setValue(.15)
-       //  .setNumberOfTickMarks(20)
+       .setValue(videoController1.VOLUME_INIT)
+       .setNumberOfTickMarks(20)
        .setLabelVisible(false)
        .setColorForeground(color(255, 180))
        .setColorBackground(color(255, 80))
@@ -126,11 +126,11 @@
        .setBroadcast(true);
 
      this.volume2 = controlP5.addSlider("volume2")
-       .setPosition(videoController2.x - sliderW, videoController2.y)
+       .setPosition(videoController2.x, videoController2.y)
        .setSize(sliderW, (int) videoController2.h)
        .setRange(0, 1)
-       .setValue(.15)
-       //  .setNumberOfTickMarks(20)
+       .setValue(videoController1.VOLUME_INIT)
+       .setNumberOfTickMarks(20)
        .setLabelVisible(false)
        .setColorForeground(color(255, 180))
        .setColorBackground(color(255, 80))

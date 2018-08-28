@@ -8,8 +8,10 @@ class VideoController {
     int syncValue;
     int reservedJump;
     int reservedSync;
+    private final float VOLUME_INIT = 0.2;
     static final int UPDATE_RATE = 10;
     static final int NONE = -10000;
+    
 
     VideoController(String videoName, String targetSubject, int targetWindow) {
         this.view = new Movie(sketch, videoName);
@@ -34,6 +36,7 @@ class VideoController {
 
         view.pause();
         view.jump(0);
+        view.volume(VOLUME_INIT);
     }
     void display() {
 
