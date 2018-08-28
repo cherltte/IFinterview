@@ -7,6 +7,7 @@
    private Slider timeSlider;
    private Slider syncBigSlider1, syncBigSlider2;
    private Slider syncSlider1, syncSlider2;
+   private Slider volume1, volume2;
 
    private final Textlabel[] playAnnotation = new Textlabel[2];
    private final String[] playText = {
@@ -112,23 +113,29 @@
      for (int i = 0; i < playAnnotation.length; i++)
        playAnnotation[i] = new Textlabel(controlP5, playText[i], int(windows[3].xy.x + (windows[3].size.y + windows[3].PD) * 2), int(windows[3].xy.y + windows[3].PD * 4));
 
-     controlP5.addSlider("volume1")
+     this.volume1 = controlP5.addSlider("volume1")
        .setPosition(videoController1.x, videoController1.y)
        .setSize(sliderW, (int) videoController1.h)
-       .setRange(0, 255)
-       .setNumberOfTickMarks(8)
+       .setRange(0, 1)
+       .setValue(.2)
+       .setNumberOfTickMarks(20)
        .setLabelVisible(false)
        .setColorForeground(color(255, 180))
-       .setColorBackground(color(255, 80));
+       .setColorBackground(color(255, 80))
+       .plugTo(this)
+       .setBroadcast(true);
 
-     controlP5.addSlider("volume2")
+     this.volume2 = controlP5.addSlider("volume2")
        .setPosition(videoController2.x, videoController2.y)
        .setSize(sliderW, (int) videoController2.h)
-       .setRange(0, 255)
-       .setNumberOfTickMarks(8)
+       .setRange(0, 1)
+       .setValue(.2)
+       .setNumberOfTickMarks(20)
        .setLabelVisible(false)
        .setColorForeground(color(255, 180))
-       .setColorBackground(color(255, 80));
+       .setColorBackground(color(255, 80))
+       .plugTo(this)
+       .setBroadcast(true);
    }
 
 
@@ -211,5 +218,13 @@
      playToggle.setValue(false);
 
      targetVideoController.sync(int(bigValue * FRAMERATE) + theValue);
+   }
+
+   public void volume1(float theValue) {
+     videoController1.volume(theValue);
+   }
+
+   public void volume2(float theValue) {
+     videoController2.volume(theValue);
    }
  }

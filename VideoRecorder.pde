@@ -27,7 +27,7 @@ class VideoRecorder {
     public void start() {
         videoExport.startMovie();
 
-        startMillis = millis();
+        startMillis = millis ();
         savedFrames = 0;
     }
 

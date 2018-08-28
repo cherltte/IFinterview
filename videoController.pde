@@ -20,7 +20,7 @@ class VideoController {
         this.reservedSync = NONE;
 
         view.play();
-       
+
         x = windows[targetWindow].xy.x;
         y = windows[targetWindow].xy.y;
         while (view.height == 0 || view.width == 0) delay(DELAY);
@@ -64,7 +64,9 @@ class VideoController {
             reservedSync = NONE;
         }
     }
-
+    void volume(float theValue) {
+        view.volume(theValue);
+    }
 
     void play() {
         if (!SHOW_OPERATOR && targetSubject == "Operator")
