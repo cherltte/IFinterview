@@ -59,6 +59,13 @@ class VideoController {
         if ((frameCount % UPDATE_RATE == 0) && (reservedSync != NONE)) {
             view.play();
             view.jump(view.time() + (reservedSync - this.syncValue) / FRAMERATE);
+            for (int i=0; i<100; i++) {
+              delay(3);
+              if (view.available()) {
+                view.read();
+                break;
+              }
+            }
             view.pause();
             this.syncValue = reservedSync;
             reservedSync = NONE;
