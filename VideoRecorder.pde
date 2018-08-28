@@ -4,9 +4,9 @@ class VideoRecorder {
     private int savedFrames;
 
     VideoRecorder() {
-        videoExport = new VideoExport(sketch, "save/" + settings.titles[0] + "/" + settings.titles[1] + "/" + settings.titles[0] + "_" + settings.titles[2] + ".mp4");
-        videoExport.setFrameRate(FRAMERATE);
-        videoExport.setDebugging(false);
+        this.videoExport = new VideoExport(sketch, "save/" + settings.titles[0] + "/" + settings.titles[1] + "/" + settings.titles[0] + "_" + settings.titles[2] + ".mp4");
+        this.videoExport.setFrameRate(FRAMERATE);
+        this.videoExport.setDebugging(false);
 
         startMillis = -1;
     }
@@ -14,18 +14,18 @@ class VideoRecorder {
     void update() {
         if (startMillis == -1)
             return;
-
+        
         int framesToSave = floor((millis() - startMillis) / 1000.0 * FRAMERATE) - savedFrames;
  
         for (int i=0; i<framesToSave; i++) {
-            videoExport.saveFrame();
+            this.videoExport.saveFrame();
             savedFrames++;
         }
     }
 
 
     public void start() {
-        videoExport.startMovie();
+        this.videoExport.startMovie();
 
         startMillis = millis ();
         savedFrames = 0;
@@ -33,6 +33,6 @@ class VideoRecorder {
 
 
     public void end() {
-        videoExport.endMovie();
+        this.videoExport.endMovie();
     }
 }

@@ -79,6 +79,7 @@ void terminateInterview() {
     translate(width / 2, height / 2 - 50);
     String videoDataInfo = settings.titles[0] + "_" + settings.titles[2] + ".mp4";
     String audioDataInfo = settings.titles[0] + "_" + settings.titles[2] + ".wave";
+    textSize(10);
     String saveMessage = "Data Have Been Saved.";
     String byeMessage = "Thank you for your help!";
     text(videoDataInfo + "  " + saveMessage, -textWidth(videoDataInfo + "  " + saveMessage) / 2, 0);
