@@ -27,8 +27,8 @@ public void settings() {
 }
 void setup() {
     settings = new SETTING();
-    videoController1 = new VideoController("operator_interview.mov", "Operator", 1);
-    videoController2 = new VideoController("visitor_interview.mov", "Visitor", 5);
+    videoController1 = new VideoController("operator.mov", "Operator", 1);
+    videoController2 = new VideoController("visitor.mov", "Visitor", 5);
 
     captionPlayer1 = new CaptionPlayer("log.csv", "Operator", 0);
     captionPlayer2 = new CaptionPlayer("log.csv", "Visitor", 4);
