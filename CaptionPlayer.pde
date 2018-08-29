@@ -38,13 +38,13 @@ class CaptionPlayer {
       update();
 
     float x = windows[targetWindow].xy.x + windows[targetWindow].PD;
-    float y = windows[targetWindow].xy.y + windows[targetWindow].PD + 16;
+    float y = windows[targetWindow].xy.y + windows[targetWindow].PD;
     for (Caption c : displayingCaptions) {
       if (!c.subject.equals(targetSubject))
         continue;
 
       c.display(x, y);
-      y += 16;
+      y += c.captionFontSize;
     }
   }
 
@@ -110,7 +110,7 @@ class Caption {
   int time;
   String subject;
   String content;
-
+  private final int captionFontSize = 9;
 
   Caption(String s) {
     int commaIdx = s.indexOf(",");
@@ -129,7 +129,8 @@ class Caption {
 
   void display(float x, float y) {
     pushStyle();
-    textSize(10);
+    fill(150);
+    textSize(captionFontSize);
     text(content, x, y);
     popStyle();
   }

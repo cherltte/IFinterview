@@ -27,11 +27,11 @@ public void settings() {
 }
 void setup() {
     settings = new SETTING();
-    videoController1 = new VideoController("operator2.mp4", "Operator", 1);
-    videoController2 = new VideoController("visitor2.mov", "Visitor", 5);
+    videoController1 = new VideoController("interface2.mp4", "Operator", 1);
+    videoController2 = new VideoController("interface1.mp4", "Visitor", 5);
 
-    captionPlayer1 = new CaptionPlayer("log2.csv", "Operator", 0);
-    captionPlayer2 = new CaptionPlayer("log2.csv", "Visitor", 4);
+    captionPlayer1 = new CaptionPlayer("log1.csv", "Operator", 0);
+    captionPlayer2 = new CaptionPlayer("log1.csv", "Visitor", 4);
     playController = new PlayController();
     setInterviewController = new SetInterviewController();
     frameRate(FRAMERATE);
@@ -59,12 +59,12 @@ void setupInterview() {
 
 void processInterview() {
     playController.draw();
+    captionPlayer1.draw();
+    captionPlayer2.draw();
     audioController.display();
     videoController1.display();
     videoController2.display();
     controlP5.draw();
-    captionPlayer1.draw();
-    captionPlayer2.draw();
     for (Window win: windows)
         win.display();
 
@@ -114,7 +114,10 @@ void keyReleased() {
 }
 
 @ Override void exit() {
+    videoRecorder.end();
     videoController1.view.stop();
     videoController2.view.stop();
+    if (!recorded && settings.isCompleted )
+        recorder.save();
     super.exit();
 }
