@@ -179,6 +179,9 @@
      } else {
        videoController1.pause();
        videoController2.pause();
+       
+       videoController1.refresh();
+       videoController2.refresh();
      }
    }
 

@@ -109,6 +109,11 @@ class VideoController {
             return;
         reservedSync = syncValue;
     }
+    
+    
+    void refresh() {
+        view.jump(view.time());
+    }
 
 
     public int getDuration() {
