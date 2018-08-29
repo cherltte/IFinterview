@@ -25,7 +25,8 @@ class VideoController {
 
         x = windows[targetWindow].xy.x;
         y = windows[targetWindow].xy.y;
-        while (view.height == 0 || view.width == 0) delay(DELAY);
+        while (!view.available()) delay(DELAY);
+        view.read();
         if (view.width > view.height) {
             w = windows[targetWindow].size.x;
             h = (view.height * windows[targetWindow].size.x) / view.width;
@@ -42,6 +43,10 @@ class VideoController {
 
         if (!SHOW_OPERATOR && targetSubject == "Operator")
             return;
+
+        if (view.available()) {
+            view.read();
+        }
 
         image(view, x, y, w, h);
 
@@ -109,8 +114,4 @@ class VideoController {
     public int getDuration() {
         return int(view.duration() * FRAMERATE);
     }
-}
-
-void movieEvent(Movie m) {
-    m.read();
 }
