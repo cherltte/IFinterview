@@ -11,7 +11,7 @@ class VideoController {
     private final float VOLUME_INIT = 0.2;
     static final int UPDATE_RATE = 10;
     static final int NONE = -10000;
-    
+
 
     VideoController(String videoName, String targetSubject, int targetWindow) {
         this.view = new Movie(sketch, videoName);
@@ -47,7 +47,7 @@ class VideoController {
         if (view.available()) {
             view.read();
         }
-
+        
         image(view, x, y, w, h);
 
         pushStyle();
@@ -67,12 +67,12 @@ class VideoController {
         if ((frameCount % UPDATE_RATE == 0) && (reservedSync != NONE)) {
             view.play();
             view.jump(view.time() + (reservedSync - this.syncValue) / FRAMERATE);
-            for (int i=0; i<100; i++) {
-              delay(3);
-              if (view.available()) {
-                view.read();
-                break;
-              }
+            for (int i = 0; i < 100; i++) {
+                delay(3);
+                if (view.available()) {
+                    view.read();
+                    break;
+                }
             }
             view.pause();
             this.syncValue = reservedSync;
@@ -109,8 +109,8 @@ class VideoController {
             return;
         reservedSync = syncValue;
     }
-    
-    
+
+
     void refresh() {
         view.jump(view.time());
     }
